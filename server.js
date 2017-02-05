@@ -1,25 +1,21 @@
-var http = require("http");
-var url = require("url");
+// server component, largely based on Ian's script, 
+// Ensures requests are valid before passing on to handlers
 
-function start(route, handle) {
+
+var http = require("http"),
+	url = require("url");
+
+function start(port, route, handle) {
 	function onRequest(request, response) {
-		var postData = "";
 		var pathname = url.parse(request.url).pathname;
-		console.log("Request for " + pathname + " received.");
-		request.setEncoding("utf8");
-
-		request.addListener("data", function(postDataChunk) {
-			postData += postDataChunk;
-			console.log("Received POST data chunk '" +
-				postDataChunk + "'.");
-		});
-		
-		request.addListener("end", function() {
-			route(handle, pathname, response, postData);
-		});
+		route(handle, pathname, response, request);
 	}
 
-	http.createServer(onRequest).listen(8888);
-	console.log("Server has started.");
+	var service = http.createServer(onRequest)
+	service.listen(port, "localhost");
+	var address = "http://localhost";
+	if (port != 80) address = address + ":" + port;
+	console.log("Server running at", address);
 }
+
 exports.start = start;

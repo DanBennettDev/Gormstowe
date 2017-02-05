@@ -1,0 +1,27 @@
+{
+  "name": "gormstowe",
+  "version": "1.0.0",
+  "description": "\"postcards\"",
+  "main": "index.js",
+  "dependencies": {
+    "formidable": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "\"echo \\\"Error: no test specified\\\" && exit 1\"",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanBennettDev/Gormstowe.git"
+  },
+  "keywords": [
+    "seaside"
+  ],
+  "author": "dan bennett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanBennettDev/Gormstowe/issues"
+  },
+  "homepage": "https://github.com/DanBennettDev/Gormstowe#readme"
+}
