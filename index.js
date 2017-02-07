@@ -19,14 +19,21 @@
 var server = require("./server"),
 	router = require("./router"),
 	requestHandlers = require("./requestHandlers"),
-	fileRequestHandler = require("./fileHandler")
+	fileRequestHandler = require("./fileHandler"),
+	imagePrep = require("./imagePrep");
 
 var port = 8080
+
+// setup image handling
+var maxImageWidth = 200, maxImageHeight = 300;
+imagePrep.setup(maxImageWidth, maxImageHeight);
+
 
 // setup & connect request handlers
 var handle = {};
 fileRequestHandler.setup();
 handle["*file*"] = fileRequestHandler.handle;
+requestHandlers.setup(imagePrep);
 
 // special cases
 handle["/"] = requestHandlers.start;

@@ -7,6 +7,11 @@ var querystring = require("querystring"),
 	fs = require("fs"),
 	formidable = require("formidable");
 
+var imageProcess;
+
+function setup(imageProcessor){
+	imageProcess = imageProcessor;
+}
 
 function start(response, postData) {
 	console.log("Request handler 'start' was called.");
@@ -33,25 +38,33 @@ function start(response, postData) {
 }
 
 function upload(response, request) {
-	console.log("Request handler 'upload' was called.");
 	var form = new formidable.IncomingForm();
-	console.log("about to parse");
 	form.parse(request, function(error, fields, files) {
-		console.log("parsing done");
+
 		/* Possible error on Windows systems:
 		tried to rename to an already existing file */
-		fs.rename(files.upload.path, "/tmp/test.png", function(error) {
+		// TODO: allow multiple files in use at once. Delete temp once done with
+		fs.rename(files.upload.path, "/tmp/temp.png", function(error) {
 			if (error) {
-				fs.unlink("/tmp/test.png");
-				fs.rename(files.upload.path, "/tmp/test.png");
+				fs.unlink("/tmp/temp.png");
+				fs.rename(files.upload.path, "/tmp/temp.png");
 			}
 		});
-		response.writeHead(200, {
-			"Content-Type": "text/html"
-		});
-		response.write("received image:<br/>");
-		response.write("<img src='/show' />");
-		response.end();
+		
+		imageProcess.compositeTest();
+
+		imageProcess.convertPNG("/tmp/temp.png", "/tmp/test.png", 
+			function (err, info){ // callback: wait til image processed then show
+				response.writeHead(200, {
+					"Content-Type": "text/html"
+				});
+				response.write("received image:<br/>");
+				response.write("<img src='/show' />");
+				response.end();
+			}
+			);
+
+
 	});
 }
 
@@ -63,6 +76,7 @@ function show(response) {
 	fs.createReadStream("/tmp/test.png").pipe(response);
 }
 
+exports.setup = setup;
 exports.start = start;
 exports.upload = upload;
 exports.show = show;
