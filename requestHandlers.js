@@ -11,6 +11,7 @@ var imageProcess;
 
 function setup(imageProcessor){
 	imageProcess = imageProcessor;
+	imageProcess.doFlipAndOverlay("./tmp/rocks.jpg","./tmp/rocksoff.png");
 }
 
 function start(response, postData) {
@@ -51,7 +52,6 @@ function upload(response, request) {
 			}
 		});
 		
-		imageProcess.compositeTest();
 
 		imageProcess.convertPNG("/tmp/temp.png", "/tmp/test.png", 
 			function (err, info){ // callback: wait til image processed then show
