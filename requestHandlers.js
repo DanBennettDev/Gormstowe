@@ -11,8 +11,13 @@ var imageProcess;
 
 function setup(imageProcessor){
 	imageProcess = imageProcessor;
-	imageProcess.doFlipAndOverlay("./tmp/rocks.jpg","./tmp/rocksoff.png");
-}
+
+	//imageProcess.convertPNG("./tmp/rocks.jpg", "./tmp/rocks.png");
+
+	imageProcess.doHorizOperation(	"./tmp/rocks.jpg",
+										"./tmp/rocksoff.png",
+										2, 8, false );
+	}
 
 function start(response, postData) {
 	console.log("Request handler 'start' was called.");
