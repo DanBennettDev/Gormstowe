@@ -25,12 +25,13 @@ function convertPNG(fileIn, fileOut, onFinish) {
 
 function doHorizOperation(fileIn, fileOut, onRows, offRows, reverse) {
    sharp(fileIn).overlayWith(
-    new Buffer([0, 0, 0, 0]),
-    { tile: true, raw: { width: 1, height: 1, channels: 4 } }
+      //guarantee 4 layer png
+      new Buffer([0, 0, 0, 0]),
+      { tile: true, raw: { width: 1, height: 1, channels: 4 } }
   ).metadata(function(err, metadata) {
       width = metadata.width;
       height = metadata.height;
-      channels = metadata.channels + 1;
+      channels = 4;  // guaranteed by overlaywith above
    }).raw().toBuffer().then(function(buffer) {
 
       const buffCopy = Object.assign({}, buffer);

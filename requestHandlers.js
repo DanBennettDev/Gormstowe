@@ -14,9 +14,9 @@ function setup(imageProcessor){
 
 	//imageProcess.convertPNG("./tmp/rocks.jpg", "./tmp/rocks.png");
 
-	imageProcess.doHorizOperation(	"./tmp/rocks.jpg",
-										"./tmp/rocksoff.png",
-										2, 8, false );
+	imageProcess.doHorizOperation(	"./tmp/baboon2.png",
+										"./tmp/baboozle.png",
+										4, 4, true );
 	}
 
 function start(response, postData) {
