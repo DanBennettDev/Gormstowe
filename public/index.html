@@ -3,14 +3,13 @@
 <head>
 <title>testing DOM actions</title>
 <script src="./js/addremove.js"></script>
-
-<!-- Testing! will not include scripts like this normally -->
-<script>AddRemove();</script>
+<script src="./js/actions.js"></script>
 </head>
+
 <body>
 <div id="intro"> Four elements should be added after page load </div>
-<button onclick="AddRemove.testAddElements(4)">addMore</button>
-<button onclick="AddRemove.removeElements(10)">remove > 10</button>
+<button id="adder">add 2 per second held</button>
+<button id="remover">remove > 10</button>
 
 
 </body>

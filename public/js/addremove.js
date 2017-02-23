@@ -1,7 +1,7 @@
 function AddRemove() {
    "use strict"
 
-   addEventListener('load', start);
+   //addEventListener('load', start);
 
    AddRemove.addElements = addElements;
    AddRemove.removeElements = removeElements;
@@ -9,17 +9,17 @@ function AddRemove() {
    
 
    var currID = 0;
+   testAddElements(4);
 
    function start() {
       // TESTING - don't do this normally
-      testAddElements(4);
    }
 
 
    // change this to get its element list from an url
    function addElements(parent, elementList, category) {
+      // add all to a fragment first to speed up insert
       var fragment = document.createDocumentFragment();
-
       for (var element of elementList) {
          // check top level node of element is a div
          if (element.firstChild.tagName != 'div')
@@ -36,7 +36,7 @@ function AddRemove() {
          fragment.appendChild(element)
          currID++;
       }
-      // append to DOM
+      // append fragment to DOM
       parent.appendChild(fragment.cloneNode(true));
    }
 
