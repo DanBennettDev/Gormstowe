@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-<p><strong>This paragraph is bold.</strong></p>
-<p>Should this paragraph be bold, or not?</p>
-<p><a href="#">This paragraph is a link</a></p>
-<p>Should this paragraph be a link, or not?</p>
+<head>
+<title>testing DOM actions</title>
+<script src="./js/addremove.js"></script>
+
+<!-- Testing! will not include scripts like this normally -->
+<script>AddRemove();</script>
+</head>
+<body>
+<div id="intro"> Four elements should be added after page load </div>
+<button onclick="AddRemove.testAddElements(4)">addMore</button>
+<button onclick="AddRemove.removeElements(10)">remove > 10</button>
+
+
+</body>
 </html>

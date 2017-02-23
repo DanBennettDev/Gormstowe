@@ -136,8 +136,8 @@ function getTags(rowAction) {
 	});
 }
 
-function serialize(function){
-	db.serialize(function(){});
+function serialize(func){
+	db.serialize(func);
 }
 
 
