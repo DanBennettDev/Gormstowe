@@ -1,0 +1,184 @@
+
+/* CSS for general page formatting across the site*/
+
+
+
+html {
+    width:100%;
+    height: 100%;
+    display: table;
+    /*font-family:  'Source Sans Pro', sans-serif;*/
+font-family: 'Vollkorn', "Times New Roman", Georgia, Serif;
+}
+
+body {
+    width:100%;
+    display:table-cell;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+
+#container {
+    top: 0px;
+    left: 0px;
+    padding: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+
+/*https://css-tricks.com/snippets/css/reversing-text/*/
+.mirrorText {
+  -webkit-transform:rotateY(180deg);
+  -moz-transform:rotateY(180deg);
+  -o-transform:rotateY(180deg);
+  -ms-transform:rotateY(180deg);
+}
+
+
+.centrePiece_70vh_absolute {
+    position: absolute;
+    max-height: 70vh;
+    width: auto;
+    float: both;
+    top: 50vh;
+    left: 50vw;
+    margin-right: -50vw;
+    transform: translate(-50%, -50%) ;
+}
+
+.middle70vh {
+	position:absolute;
+    height: 70vw;
+    top: 15vh;
+}
+
+.middleStrip {
+    position:absolute;
+    height: 7.5vh;
+    width: auto;
+    float: both;
+    top: 50vh;
+    left: 50vw;
+    margin-right: -50vw;
+    transform: translate(-50%, -50%) ;
+}
+
+
+.fullScreen_immobile {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    float: both;
+}
+
+
+.seethru {
+    opacity:0.8;
+}
+
+.reveal {
+    position:absolute;
+    visibility: hidden;
+}
+
+
+.ghost {
+    pointer-events: none;
+    opacity:0;
+}
+
+.left50 {
+    position:absolute;
+    max-width: 60vw;
+    max-height: 110vh;
+}
+
+
+#middleMenu {
+    position:absolute;
+    width: auto;
+    float: both;
+    top: 50vh;
+    left: 50vw;
+    margin-top: 4.7vh;
+    font-size:1.9em;
+    font-weight:300;
+}
+
+#middleMenu ul {
+   list-style: none;
+   padding:0px;
+   margin:0px;
+   top:0px;
+   left:0px;
+}
+
+#middleMenu ul li:before {
+   content: "•";
+   font-size: 100%; 
+   padding-right: 0.2em;
+}
+
+#middleMenu ul li:hover:before {
+   color:red;
+}
+
+#middleMenu ul li {
+    top:0px;
+    padding:0px;
+    margin:0px;
+    line-height: 1.1em;
+}
+
+
+#middleMenu a {
+    display:inline;
+
+    color:black;
+    text-decoration: none;
+}
+
+
+.background {
+	z-index: -100;
+}
+
+.middlebackground{
+    z-index: -50;
+}
+
+.middleground {
+	z-index: 0;
+}
+
+.middleforeground{
+    z-index: 50;
+}
+
+.foreground {
+    z-index: 100;
+}
+
+.absoluteforeground {
+    z-index: 200;
+}
+
+
+
+.whiteout {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    position:absolute;
+}

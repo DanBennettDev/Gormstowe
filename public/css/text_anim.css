@@ -1,0 +1,119 @@
+
+
+/* css only for handling the sliding text animation on front page*/
+
+
+.slideTextContainer {
+    left: 50%;
+    margin-left: -52%; /* Negative margin half of the element width */
+    position: absolute;
+    overflow: hidden;
+    width: 150%;
+    float: both;
+    font-size: 1.5vh;
+    font-weight: 900;
+}
+
+.textAnim_centredLine{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 0.9vh; 
+    color: #888888;
+    overflow: hidden;
+
+}
+.slideTextContainer p {
+    padding-top :0vh;
+    padding-bottom: 6.8vh;
+}
+
+#slidingText1 {
+	position:absolute;
+	top:0vh;
+    letter-spacing: 2px;
+    -webkit-animation: mymove 3s infinite; /* Chrome, Safari, Opera */
+    animation: mymove 3s infinite;
+}
+#slidingText2 {
+	position:absolute;
+	height: 100%;
+	top:0.5vh;
+    letter-spacing: 2px;
+    -webkit-animation: mymove 4s infinite; /* Chrome, Safari, Opera */
+    animation: mymove 4s infinite;
+}
+#slidingText3 {
+	position:absolute;
+	top:1vh;
+    letter-spacing: 2px;
+    -webkit-animation: mymove 3.5s infinite; /* Chrome, Safari, Opera */
+    animation: mymove 3.5s infinite;
+}
+#slidingText4 {
+	position:absolute;
+	top:1.5vh;
+    letter-spacing: 2px;
+    -webkit-animation: mymove 5s infinite; /* Chrome, Safari, Opera */
+    animation: mymove 5s infinite;
+}
+#slidingText5 {
+	position:absolute;
+	top:2.0vh;
+    letter-spacing: 2px;
+    -webkit-animation: mymove 4.5s infinite; /* Chrome, Safari, Opera */
+    animation: mymove 4.5s infinite;
+}
+#slidingText6 {
+	position:absolute;
+	top:2.5vh;
+    letter-spacing: 2px;
+    -webkit-animation: mymove 5.5s infinite; /* Chrome, Safari, Opera */
+    animation: mymove 5.5s infinite;
+}
+
+/*http://stackoverflow.com/questions/37831837/gradient-text-color*/
+.rainbow {
+  background-image: -webkit-gradient( linear, left top, right top, color-stop(0, rgb(184,106,16)), 
+    color-stop(0.15, rgb(231,204,208)), 
+    color-stop(0.3, rgb(65,102,255)), 
+    color-stop(0.45, rgb(180,131,53)), 
+    color-stop(0.6, rgb(231,204,208))
+    );
+  background-image: gradient( linear, left top, right top, color-stop(0, rgb(184,106,16)), 
+    color-stop(0.15, rgb(231,204,208)), 
+    color-stop(0.3, rgb(65,102,255)), 
+    color-stop(0.45, rgb(180,131,53)), 
+    color-stop(0.6, rgb(231,204,208))
+    );
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.reverserainbow {
+  background-image: -webkit-gradient( linear, right top, left top, color-stop(0, rgb(184,106,16)), 
+    color-stop(0.15, rgb(231,204,208)), 
+    color-stop(0.3, rgb(65,102,255)), 
+    color-stop(0.45, rgb(180,131,53)), 
+    color-stop(0.6, rgb(231,204,208))
+    );
+  background-image: gradient( linear, right top, left top, color-stop(0, rgb(184,106,16)), 
+    color-stop(0.15, rgb(231,204,208)), 
+    color-stop(0.3, rgb(65,102,255)), 
+    color-stop(0.45, rgb(180,131,53)), 
+    color-stop(0.6, rgb(231,204,208))
+    );
+  color:transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes mymove {
+    50% {letter-spacing: 50px;}
+}
+
+/* Standard syntax */
+@keyframes mymove {
+    50% {letter-spacing: 50px;}
+}
