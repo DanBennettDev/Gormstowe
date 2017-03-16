@@ -27,7 +27,7 @@ var server = require("./server"),
 var port = 8080
 
 // setup image handling
-var maxImageWidth = 200, maxImageHeight = 300;
+var maxImageWidth = 800, maxImageHeight = 800;
 imagePrep.setup(maxImageWidth, maxImageHeight);
 dbHandling.setup("./db/db1.db");
 
@@ -35,14 +35,13 @@ dbHandling.setup("./db/db1.db");
 var handle = {};
 fileRequestHandler.setup();
 handle["*file*"] = fileRequestHandler.handle;
-requestHandlers.setup(imagePrep);
+handle["/"] = requestHandlers.handle;
+requestHandlers.setup(imagePrep, dbHandling);
 
 // special cases
-handle["/"] = requestHandlers.start;
-handle["/start"] = requestHandlers.start;
+handle["/explore"] = requestHandlers.explore;
 handle["/upload"] = requestHandlers.upload;
-handle["/show"] = requestHandlers.show;
 
 server.start(port, router.route, handle);
 
-dbHandling.test();
+//dbHandling.test();

@@ -2,39 +2,37 @@ var sql = require('sqlite3').verbose(),
 	fs = require('fs');
 
 var db;
-var cmd_createUser,
-	cmd_addItem,
-	cmd_createTag,
-	cmd_tagitem,
-	cmd_getUserInfo;
+var commands = {};
 
 function setup(filename) {
 	db = new sql.Database(filename, sql.OPEN_READWRITE, function(err) {
 		if (err != null) console.log("db load error: " + err);
 	});
-
-	cmd_createUser = loadCommandSync('./db/fn_createUser.sql');
-	cmd_createItem = loadCommandSync('./db/fn_addItem.sql');
-	cmd_tagItem = loadCommandSync('./db/fn_tagItem.sql');
-	cmd_createTag = loadCommandSync('./db/fn_createTag.sql');
-	cmd_getUserInfoName = loadCommandSync('./db/fn_getUserInfo.sql');
-	cmd_getUserInfoID = loadCommandSync('./db/fn_getUserInfo_id.sql');
-	cmd_getUserItemsName = loadCommandSync('./db/fn_getUserItems.sql');
-	cmd_getUserItemsID = loadCommandSync('./db/fn_getUserItems_id.sql');
-	cmd_getItemInfo = loadCommandSync('./db/fn_getItemInfo.sql');
-	cmd_getItemTags = loadCommandSync('./db/fn_getItemTags.sql');
-	cmd_getItemsWithTag = loadCommandSync('./db/fn_getItemsWithTag.sql');
-
+	commands["createUser"] =  loadCommandSync('./db/fn_createUser.sql');
+	commands["createItem"] =  loadCommandSync('./db/fn_addItem.sql');
+	commands["tagItem"] =  loadCommandSync('./db/fn_tagItem.sql');
+	commands["createTag"] =  loadCommandSync('./db/fn_createTag.sql');
+	commands["getUserInfoName"] =  loadCommandSync('./db/fn_getUserInfo.sql');
+	commands["getUserInfoID"] =  loadCommandSync('./db/fn_getUserInfo_id.sql');
+	commands["getUserItemsName"] =  loadCommandSync('./db/fn_getUserItems.sql');
+	commands["getUserItemsID"] =  loadCommandSync('./db/fn_getUserItems_id.sql');
+	commands["getItemInfo"] =  loadCommandSync('./db/fn_getItemInfo.sql');
+	commands["getItemTags"] =  loadCommandSync('./db/fn_getItemTags.sql');
+	commands["getItemsWithTag"] =  loadCommandSync('./db/fn_getItemsWithTag.sql');
 }
 
-function createUser(name, email, pwrd) {
-	db.run(cmd_createUser, [name, email, pwrd], function(err) {
+function createUser(name, email, pwrd, callback) {
+	db.run(commands["createUser"], [name, email, pwrd], function(err) {
 		if (err) console.log('createUser error: ' + err.message);
+		if(callback){callback();}
 	});
 }
 
-function createItem(details) {
-	if (details.$ownerID == null || details.$positionX == null || details.$positionY == null || details.$positionX == null || details.$positionY == null || details.$name == null || details.$fileURL == null | details.$functionType == null || details.$type == null) {
+function createItem(details, callback) {
+	if (details.$ownerID == null || details.$positionX == null 
+		|| details.$positionY == null  || details.$name == null || 
+		details.$fileURL == null 
+		|| details.$functionType == null || details.$type == null) {
 		console.log("required fields not entered");
 		return;
 	}
@@ -49,31 +47,35 @@ function createItem(details) {
 	}
 	details.$captionText = details.$captionText || '';
 
-	db.run(cmd_createItem, details, function(err) {
+	db.run(commands["createItem"], details, function(err) {
 		if (err) console.log('createItem error: ' + err.message);
+		if(callback){callback();}
 	});
 }
 
-function createTag(name, description) {
-	db.run(cmd_createTag, {
+function createTag(name, description, callback) {
+	db.run(commands["createTag"], {
 		$name: name,
 		$description: description
 	}, function(err) {
 		if (err) console.log('createTag error: ' + err.message);
+		if(callback){callback();}
 	});
 }
 
-function tagItem(itemID, tagName) {
-	db.run(cmd_tagItem, {
+function tagItem(itemID, tagName, callback) {
+	db.run(commands["tagItem"], {
 		$itemID: itemID,
 		$tagName: tagName
 	}, function(err) {
 		if (err) console.log('tagItem error: ' + err.message);
+		if(callback){callback();}
 	});
 }
 
 function getUserInfo(key, rowAction) {
-	const runThis = typeof key == 'string' ? cmd_getUserInfoName : cmd_getUserInfoID;
+	const runThis = typeof key == 'string' ? 
+				commands["getUserInfoName"] : commands["getUserInfoID"];
 
 	db.get(runThis, [key], function(err, row) {
 		if (err) {
@@ -85,7 +87,7 @@ function getUserInfo(key, rowAction) {
 }
 
 function getItemInfo(id, rowAction) {
-	db.get(cmd_getItemInfo, [id], function(err, row) {
+	db.get(commands["getItemInfo"], [id], function(err, row) {
 		if (err) {
 			console.log('getItemInfo error: ' + err.message);
 		} else {
@@ -95,7 +97,8 @@ function getItemInfo(id, rowAction) {
 }
 
 function getUserItems(key, rowAction) {
-	const runThis = typeof key == 'string' ? cmd_getUserItemsName : cmd_getUserItemsID;
+	const runThis = typeof key == 'string' ?
+					commands["getUserItemsName"] : commands["getUserItemsID"];
 
 	db.all(runThis, [key], function(err, row) {
 		if (err) {
@@ -107,7 +110,7 @@ function getUserItems(key, rowAction) {
 }
 
 function getItemTags(itemID, rowAction) {
-	db.all(cmd_getItemTags, [itemID], function(err, row) {
+	db.all(commands["getItemTags"], [itemID], function(err, row) {
 		if (err) {
 			console.log('getItemTags error: ' + err.message);
 		} else {
@@ -117,7 +120,7 @@ function getItemTags(itemID, rowAction) {
 }
 
 function getItemsWithTag(tagID, rowAction) {
-	db.all(cmd_getItemsWithTag, [tagID], function(err, row) {
+	db.all(commands["getItemsWithTag"], [tagID], function(err, row) {
 		if (err) {
 			console.log('getItemsWithTag error: ' + err.message);
 		} else {

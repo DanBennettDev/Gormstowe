@@ -1,3 +1,6 @@
+
+// Image processing functions for the site
+
 var sharp = require("sharp");
 
 
@@ -7,6 +10,7 @@ function setup(maxWidth, maxHeight) {
    maxH = maxHeight;
 
 }
+
 
 function limitSize(fileIn) {
    const image = sharp(fileIn);
@@ -28,7 +32,7 @@ function doHorizOperation(fileIn, fileOut, onRows, offRows, reverse) {
       //guarantee 4 layer png
       new Buffer([0, 0, 0, 0]),
       { tile: true, raw: { width: 1, height: 1, channels: 4 } }
-  ).metadata(function(err, metadata) {
+  ).metadata( function(err, metadata) {
       width = metadata.width;
       height = metadata.height;
       channels = 4;  // guaranteed by overlaywith above
