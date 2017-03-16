@@ -1,0 +1,37 @@
+
+/*	styling for the "explore page 
+	where users can explore a map and upload images, text etc.
+	to points on the map
+*/
+
+#map {
+    top: 0;
+    left: 0;
+    padding: 0px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    height: 45vh;
+    width: 45vh;
+    clear: both;
+}
+
+#map .gridsquare {
+    top: 0px;
+    left: 0px;
+    padding: 0;
+    height: 5vh;
+    width: 5vh;
+    display: inline-block;
+    float:left;
+    border-width: 0px;
+}
+
+#map .gridsquare:nth-of-type(2n+0){
+	border-style: dotted;
+    border-width: 1px;
+        margin: -1px;
+    background:pink;
+}
+
+
+

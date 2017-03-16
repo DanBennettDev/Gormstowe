@@ -5,7 +5,8 @@
 var querystring = require("querystring"),
 	fs = require("fs"),
 	formidable = require("formidable"),
-	uuid = require('node-uuid');
+	uuid = require('node-uuid'),
+	jsdom = require("node-jsdom");
 
 var imageProcess;
 var dbAction;
@@ -21,19 +22,7 @@ var acceptTypes = [
 function setup(imageProcessor, dbHandler) {
 	imageProcess = imageProcessor;
 	dbAction = dbHandler;
-
-	//imageProcess.convertPNG("./tmp/rocks.jpg", "./tmp/rocks.png");
-	// testing
-	// imageProcess.doHorizOperation(	"./tmp/baboon2.png",
-	// 									"./tmp/baboozle.png",
-	// 									4, 4, true );
-
-	// this will be the most accessed template, not that big, so just keep 
-	// in memory rather than keep going to disc
-	// sync because we're in setup phase, and I'd rather wait, but make it
-	// easy to reason about the execution sequence
 	explorePageTemplate = fs.readFileSync("./templates/explore.html", 'utf8');
-
 }
 
 function explore(response, postData) {
@@ -64,7 +53,6 @@ function upload(response, request) {
 								logImage);
 				// "./public" + uploadFolder + fileID + ".png", show));
 
-
 		function logImage(err, info){
 			if (err) {
 				console.log(err);
@@ -81,13 +69,10 @@ function upload(response, request) {
 					$image_Height: info.height
 				};
 			dbAction.createItem(details, show);
-			
 		}
-
 
 		// todo - this should be handled by a call to the database based on current "location"
 		function show() { // callback: wait til image processed then show
-
 			response.writeHead(200, {
 				"Content-Type": "text/html"
 			});
@@ -95,10 +80,27 @@ function upload(response, request) {
 			response.write("<img src=." + uploadFolder + fileID + ".png>");
 			response.end();
 		}
-
 	});
-
 }
+
+
+function makeMap(){
+	var square = '<div class="gridsquare">';
+	var link = '<a href="/location/';
+	var theMap = '';
+	for(var i=0; i<100; i++){
+		var x = (i%10)*10;
+		var y = Math.floor(i/10) * 10;
+		var thisLink = link + 'x='+x+'y='y;
+		theMap += square;
+		theMap += thisLink; 
+		theMap+="</a></div>"
+	}
+	return theMap;
+}
+
+
+
 
 function isValidType(thisType){
 	for(var typ of acceptTypes){
