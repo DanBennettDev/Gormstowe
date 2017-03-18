@@ -42,20 +42,19 @@ function explore(response, postData) {
 		var square = '<div class="gridsquare">';
 		var link = '<a href="/location/';
 		var theMap = '';
-		for(var i=0; i<100; i++){
-			//var x = (i%10)*10;
-			//var y = Math.floor(i/10) * 10;
-			//var thisLink = link + 'x='+x+'.0,y='+y+'.0'+'">';
-			//var newline = thisLink + square + "</div></a>";
-			var newline = square + "</div>";
+		for(var i=0; i<81; i++){
+			var x = (i%9)*10;
+			var y = Math.floor(i/9) * 10;
+			var thisLink = link + 'x='+x+'.0,y='+y+'.0'+'">';
+			var newline = thisLink + square + "</div></a>";
 			theMap = theMap + newline;
 		}
 		// insert into div
 		window.document.getElementById("map").innerHTML = theMap;
 
 		// return
-		//response.write(jsdom.serializeDocument(window.document));
-		response.write(explorePageTemplate);
+		response.write(jsdom.serializeDocument(window.document));
+		//response.write(explorePageTemplate);
 		response.end();
 	}
 

@@ -15,7 +15,7 @@
     clear: both;
 }
 
-#map .gridsquare {
+#map a .gridsquare {
     top: 0px;
     left: 0px;
     padding: 0;
@@ -26,7 +26,7 @@
     border-width: 0px;
 }
 
-#map .gridsquare:nth-of-type(2n+0){
+#map a:nth-of-type(2n+0) .gridsquare{
 	border-style: dotted;
     border-width: 1px;
         margin: -1px;
