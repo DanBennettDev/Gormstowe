@@ -10,8 +10,8 @@
     padding: 0px;
     margin-left: 10px;
     margin-bottom: 10px;
-    height: 45vh;
-    width: 45vh;
+    height: 70vh;
+    width: 70vh;
     clear: both;
 }
 
@@ -19,17 +19,16 @@
     top: 0px;
     left: 0px;
     padding: 0;
-    height: 5vh;
-    width: 5vh;
+    height: 11.1111%;
+    width: 11.1111%;
     display: inline-block;
     float:left;
     border-width: 0px;
 }
 
 #map a:nth-of-type(2n+0) .gridsquare{
-	border-style: dotted;
-    border-width: 1px;
-        margin: -1px;
+    top: 0px;
+    left: 0px;
     background:pink;
 }
 

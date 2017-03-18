@@ -19,6 +19,8 @@
 var server = require("./server"),
 	router = require("./router"),
 	requestHandlers = require("./requestHandlers"),
+	handleMap = require("./handleMap"),
+	handleUpload = require("./handleUpload"),
 	fileRequestHandler = require("./fileHandler"),
 	imagePrep = require("./imagePrep"),
 	dbHandling = require("./dbHandling");
@@ -40,10 +42,11 @@ handle["*file*"] = fileRequestHandler.handle;
 
 // dynamic stuff
 requestHandlers.setup(imagePrep, dbHandling);
+handleMap.setup();
 handle["/"] = requestHandlers.handle;
 handle["/explore"] = requestHandlers.explore;
-handle["/upload"] = requestHandlers.upload;
-handle["/location"] = requestHandlers.location;
+handle["/upload"] = handleUpload.upload;
+handle["/location"] = handleMap.location;
 
 server.start(port, router.route, handle);
 

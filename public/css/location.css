@@ -1,0 +1,20 @@
+
+/*	styling for the "explore page 
+	where users can explore a map and upload images, text etc.
+	to points on the map
+*/
+
+#locationDisplay {
+    margin-top: 2vh;
+    margin-left: 5vh;
+    margin-bottom: 2vh;
+    height: 80vh;
+    width: 90vw;
+    clear: both;
+    border-style: dotted;
+    border-width: 1px;
+    overflow: hidden;
+}
+
+
+
