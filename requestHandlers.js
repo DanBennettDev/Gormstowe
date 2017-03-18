@@ -6,7 +6,7 @@ var querystring = require("querystring"),
 	fs = require("fs"),
 	formidable = require("formidable"),
 	uuid = require('node-uuid'),
-	jsdom = require("node-jsdom");
+	jsdom = require("jsdom");
 
 var imageProcess;
 var dbAction;
@@ -30,9 +30,38 @@ function explore(response, postData) {
 	response.writeHead(200, {
 		"Content-Type": "text/html"
 	});
-	response.write(explorePageTemplate);
-	response.end();
+	jsdom.env(explorePageTemplate, generateMap);
+
+
+	function generateMap(err, window){
+		if(err){
+			console.log("could not read explore template " + err);
+			return;
+		}
+		// generate map
+		var square = '<div class="gridsquare">';
+		var link = '<a href="/location/';
+		var theMap = '';
+		for(var i=0; i<100; i++){
+			//var x = (i%10)*10;
+			//var y = Math.floor(i/10) * 10;
+			//var thisLink = link + 'x='+x+'.0,y='+y+'.0'+'">';
+			//var newline = thisLink + square + "</div></a>";
+			var newline = square + "</div>";
+			theMap = theMap + newline;
+		}
+		// insert into div
+		window.document.getElementById("map").innerHTML = theMap;
+
+		// return
+		//response.write(jsdom.serializeDocument(window.document));
+		response.write(explorePageTemplate);
+		response.end();
+	}
+
 }
+
+
 
 function upload(response, request) {
 	var form = new formidable.IncomingForm();
@@ -83,21 +112,6 @@ function upload(response, request) {
 	});
 }
 
-
-function makeMap(){
-	var square = '<div class="gridsquare">';
-	var link = '<a href="/location/';
-	var theMap = '';
-	for(var i=0; i<100; i++){
-		var x = (i%10)*10;
-		var y = Math.floor(i/10) * 10;
-		var thisLink = link + 'x='+x+'y='y;
-		theMap += square;
-		theMap += thisLink; 
-		theMap+="</a></div>"
-	}
-	return theMap;
-}
 
 
 
