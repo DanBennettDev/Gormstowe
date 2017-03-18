@@ -33,14 +33,17 @@ dbHandling.setup("./db/db1.db");
 
 // setup & connect request handlers
 var handle = {};
+
+// standard files
 fileRequestHandler.setup();
 handle["*file*"] = fileRequestHandler.handle;
-handle["/"] = requestHandlers.handle;
-requestHandlers.setup(imagePrep, dbHandling);
 
-// special cases
+// dynamic stuff
+requestHandlers.setup(imagePrep, dbHandling);
+handle["/"] = requestHandlers.handle;
 handle["/explore"] = requestHandlers.explore;
 handle["/upload"] = requestHandlers.upload;
+handle["/location"] = requestHandlers.location;
 
 server.start(port, router.route, handle);
 

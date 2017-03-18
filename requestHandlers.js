@@ -6,11 +6,12 @@ var querystring = require("querystring"),
 	fs = require("fs"),
 	formidable = require("formidable"),
 	uuid = require('node-uuid'),
-	jsdom = require("jsdom");
+	jsdom = require("jsdom"),
+	url = require("url");
 
 var imageProcess;
 var dbAction;
-var explorePageTemplate;
+var explorePageTemplate, locationPageTemplate;
 var tmpFolder = "./tmp/";
 var uploadFolder = "/img/uploads/";
 var acceptTypes = [
@@ -23,15 +24,13 @@ function setup(imageProcessor, dbHandler) {
 	imageProcess = imageProcessor;
 	dbAction = dbHandler;
 	explorePageTemplate = fs.readFileSync("./templates/explore.html", 'utf8');
+	locationPageTemplate = fs.readFileSync("./templates/location.html", 'utf8');
 }
 
-function explore(response, postData) {
+// TODO - as this grows move functions into script of its own
+function explore(response, request) {
 
-	response.writeHead(200, {
-		"Content-Type": "text/html"
-	});
 	jsdom.env(explorePageTemplate, generateMap);
-
 
 	function generateMap(err, window){
 		if(err){
@@ -40,7 +39,7 @@ function explore(response, postData) {
 		}
 		// generate map
 		var square = '<div class="gridsquare">';
-		var link = '<a href="/location/';
+		var link = '<a href="/location&';
 		var theMap = '';
 		for(var i=0; i<81; i++){
 			var x = (i%9)*10;
@@ -53,12 +52,29 @@ function explore(response, postData) {
 		window.document.getElementById("map").innerHTML = theMap;
 
 		// return
+		response.writeHead(200, { "Content-Type": "text/html" });
 		response.write(jsdom.serializeDocument(window.document));
 		//response.write(explorePageTemplate);
 		response.end();
 	}
 
 }
+
+function location(response, request){
+
+	jsdom.env(locationPageTemplate, locationResponse);
+
+	function locationResponse(err, window){
+		var info = "you clicked: " + url.parse(request.url).pathname;
+		window.document.getElementById("currentLocation").innerHTML = info;
+		response.writeHead(200, { "Content-Type": "text/html" });
+		response.write(jsdom.serializeDocument(window.document));
+		response.end();
+	}
+}
+
+
+
 
 
 
@@ -128,3 +144,4 @@ function isValidType(thisType){
 exports.setup = setup;
 exports.explore = explore;
 exports.upload = upload;
+exports.location = location;
