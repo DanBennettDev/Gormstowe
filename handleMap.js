@@ -25,11 +25,16 @@ function location(response, request){
 			console.log("error - no parameters in location request")
 			return;
 		}
-		console.log(paramStart);
-		var action = "/upload"+ requestAction
+		var params = requestAction
 			.substring(paramStart,requestAction.length+1);
+		var action = "/upload"+ params;
+		var x = action.substring(action.indexOf("x")+2, action.indexOf("x")+7);
+		var y = action.substring(action.indexOf("y")+2, action.indexOf("y")+7);
 
-		window.document.getElementById("upload_form").action = action;
+		window.document.getElementById("initVariables").innerHTML 
+							= "var locX= " +x+"; \nvar locY= " +y+";";
+
+		//window.document.getElementById("upload_form").action = action;
 		response.writeHead(200, { "Content-Type": "text/html" });
 		response.write(jsdom.serializeDocument(window.document));
 		response.end();

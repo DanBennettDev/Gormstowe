@@ -48,12 +48,8 @@ function Frontpage(){
 			document.getElementById('middleMenu').style.visibility = "visible";
 			logo.style.visibility = "visible";
 			logoAnim.startAnim();
-
 		}
-
 	}
-
-
 
 
 	return Frontpage;
