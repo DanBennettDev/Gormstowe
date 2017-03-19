@@ -7,15 +7,12 @@ var querystring = require("querystring"),
 	formidable = require("formidable"),
 	uuid = require('node-uuid'),
 	jsdom = require("jsdom"),
-	url = require("url");
+	url = require("url"),
+	requestParser = require("./requestParser");
 
-var imageProcess;
-var dbAction;
 var explorePageTemplate;
 
 function setup(imageProcessor, dbHandler) {
-	imageProcess = imageProcessor;
-	dbAction = dbHandler;
 	explorePageTemplate = fs.readFileSync("./templates/explore.html", 'utf8');
 }
 
@@ -31,12 +28,12 @@ function explore(response, request) {
 		}
 		// generate map
 		var square = '<div class="gridsquare">';
-		var link = '<a href="/location&';
+		var link = '<a href="';
 		var theMap = '';
 		for(var i=0; i<81; i++){
 			var x = (i%9)*10;
 			var y = Math.floor(i/9) * 10;
-			var thisLink = link + 'x='+x+'.00,y='+y+'.00'+'">';
+			var thisLink = link + requestParser.buildLocationURL("location",x,y)+'">';
 			var newline = thisLink + square + "</div></a>";
 			theMap = theMap + newline;
 		}

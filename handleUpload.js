@@ -7,7 +7,8 @@ var querystring = require("querystring"),
 	formidable = require("formidable"),
 	uuid = require('node-uuid'),
 	jsdom = require("jsdom"),
-	url = require("url");
+	url = require("url"),
+	requestParser = require("./requestParser");
 
 var imageProcess;
 var dbAction;
@@ -27,7 +28,13 @@ function setup(imageProcessor, dbHandler) {
 
 
 function upload(response, request) {
+
 	var form = new formidable.IncomingForm();
+	var params = requestParser.getParamString(request);
+	var locX = requestParser.getParam(params,'x');
+	var locY = requestParser.getParam(params,'y');
+
+	
 	form.parse(request, function(error, fields, files) {
 
 		// use UUID to prevent overwrite
@@ -39,11 +46,14 @@ function upload(response, request) {
 			console.log("invalid type: " +files.upload.type);
 			return;
 		}
+
 		var fileURL = uploadFolder + fileID + ".png";
 		//convert to PNG
 		imageProcess.convertPNG(files.upload.path, "./public" + fileURL, 
 								logImage);
 				// "./public" + uploadFolder + fileID + ".png", show));
+
+
 
 		function logImage(err, info){
 			if (err) {
@@ -51,8 +61,8 @@ function upload(response, request) {
 			}
 			var details = 
 				{	$ownerID: 0, // TODO : dummy
-					$positionX: 0, // TODO : dummy
-					$positionY: 0, // TODO : dummy
+					$positionX: locX, // TODO : dummy
+					$positionY: locY, // TODO : dummy
 					$name: fileID,  // TODO : dummy
 					$fileURL: fileURL,
 					$functionType: "object",
@@ -89,3 +99,4 @@ function isValidType(thisType){
 }
 
 exports.upload = upload;
+exports.setup = setup;

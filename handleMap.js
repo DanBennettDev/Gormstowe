@@ -5,7 +5,8 @@
 var querystring = require("querystring"),
 	fs = require("fs"),
 	jsdom = require("jsdom"),
-	url = require("url");
+	url = require("url"),
+	requestParser = require("./requestParser");
 
 var locationPageTemplate;
 
@@ -19,17 +20,9 @@ function location(response, request){
 	jsdom.env(locationPageTemplate, locationResponse);
 
 	function locationResponse(err, window){
-		var requestAction = url.parse(request.url).pathname;
-		var paramStart = requestAction.indexOf("&");
-		if(paramStart==-1){
-			console.log("error - no parameters in location request")
-			return;
-		}
-		var params = requestAction
-			.substring(paramStart,requestAction.length+1);
-		var action = "/upload"+ params;
-		var x = action.substring(action.indexOf("x")+2, action.indexOf("x")+7);
-		var y = action.substring(action.indexOf("y")+2, action.indexOf("y")+7);
+		var action = "/upload"+ requestParser.getParamString(request);
+		var x = parseFloat(requestParser.getParam(action,'x'));
+		var y = parseFloat(requestParser.getParam(action,'y'));
 
 		window.document.getElementById("initVariables").innerHTML 
 							= "var locX= " +x+"; \nvar locY= " +y+";";
