@@ -22,11 +22,14 @@ function Frontpage(){
 		"use strict"
 		ghosts = document.getElementsByClassName('ghost');
 		fadeOuts = document.getElementsByClassName('fadeOut');
-		utility.generateRepeatingText("slidingText1");
-		utility.generateRepeatingText("slidingText2");
-		utility.generateRepeatingText("slidingText3");
-		utility.generateRepeatingText("slidingText4");
-		utility.generateRepeatingText("slidingText5");
+
+		// chrome handles this animation well, other browsers do not
+		if(isChrome()){
+			utility.generateRepeatingText("slidingText1");
+			utility.generateRepeatingText("slidingText2");
+			utility.generateRepeatingText("slidingText3");
+			utility.generateRepeatingText("slidingText4");
+		}
 
 		logoAnim.run();
 		var logo = document.getElementById('logo');
@@ -49,6 +52,25 @@ function Frontpage(){
 			logo.style.visibility = "visible";
 			logoAnim.startAnim();
 		}
+	}
+
+	// not my work: taken directly from here, unmodified 
+	// http://stackoverflow.com/questions/4565112/javascript-how-to-find-out-if-the-user-browser-is-chrome
+	function isChrome() {
+	  var isChromium = window.chrome,
+	    winNav = window.navigator,
+	    vendorName = winNav.vendor,
+	    isOpera = winNav.userAgent.indexOf("OPR") > -1,
+	    isIEedge = winNav.userAgent.indexOf("Edge") > -1,
+	    isIOSChrome = winNav.userAgent.match("CriOS");
+
+	  if(isIOSChrome){
+	    return true;
+	  } else if(isChromium !== null && isChromium !== undefined && vendorName === "Google Inc." && isOpera == false && isIEedge == false) {
+	    return true;
+	  } else { 
+	    return false;
+	  }
 	}
 
 

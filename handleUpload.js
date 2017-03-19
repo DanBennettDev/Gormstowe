@@ -60,7 +60,7 @@ function upload(response, request) {
 				console.log(err);
 			}
 			var details = 
-				{	$ownerID: 0, // TODO : dummy
+				{	$ownerID: 1, // TODO : dummy
 					$positionX: locX, // TODO : dummy
 					$positionY: locY, // TODO : dummy
 					$name: fileID,  // TODO : dummy

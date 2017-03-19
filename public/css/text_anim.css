@@ -10,21 +10,21 @@
     overflow: hidden;
     width: 150%;
     float: both;
-    font-size: 1.5vh;
+    font-size: 2.5vh;
     font-weight: 900;
 }
 
 .textAnim_centredLine{
     text-align: center;
     vertical-align: middle;
-    line-height: 0.9vh; 
+    line-height: 1.4vh; 
     color: #888888;
     overflow: hidden;
 
 }
 .slideTextContainer p {
     padding-top :0vh;
-    padding-bottom: 6.8vh;
+    padding-bottom: 11.5firevh;
 }
 
 #slidingText1 {

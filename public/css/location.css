@@ -5,6 +5,7 @@
 */
 
 #locationDisplay {
+    position: relative;
     margin-top: 2vh;
     margin-left: 5vh;
     margin-bottom: 2vh;
@@ -16,5 +17,15 @@
     overflow: hidden;
 }
 
+
+.imageObject {
+    position: absolute;
+    /* position coords should should be to centre of image*/
+    margin-left: -50%;
+    margin-top: -50%;
+    /*transform: translate(-50%, -50%) ;*/
+    float: both;
+
+}
 
 

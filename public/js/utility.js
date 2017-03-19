@@ -78,8 +78,8 @@ function Utility() {
 	}
 
 	function generateRepeatingText(div){
-		var rows = 8;
-		var lineLength = 100;
+		var rows = 5;
+		var lineLength = 70;
 		var unit1 = "/..";
 		var unit2 = "..\\"
 		var oddLine, evenLine, content;

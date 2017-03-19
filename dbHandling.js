@@ -19,6 +19,8 @@ function setup(filename) {
 	commands["getItemInfo"] =  loadCommandSync('./db/fn_getItemInfo.sql');
 	commands["getItemTags"] =  loadCommandSync('./db/fn_getItemTags.sql');
 	commands["getItemsWithTag"] =  loadCommandSync('./db/fn_getItemsWithTag.sql');
+	commands["getItemsInLocRange"] =  loadCommandSync('./db/fn_getItemsInLocRange.sql');
+
 }
 
 function createUser(name, email, pwrd, callback) {
@@ -129,6 +131,27 @@ function getItemsWithTag(tagID, rowAction) {
 	});
 }
 
+function getItemsInLocRange(fromX, toX, fromY, toY, rowAction) {
+	var details = 
+		{	$fromX: fromX,
+			$toX: toX, 
+			$fromY: fromY, 
+			$toY: toY
+		};
+
+	db.all(commands["getItemsInLocRange"], details, function(err, rows) {
+		if (err) {
+			console.log('getItemsInLocRange error: ' + err.message);
+		} else {
+			rowAction(rows);
+		}
+	});
+}
+
+
+
+
+
 function getTags(rowAction) {
 	db.all('select * from Tag;', [], function(err, row) {
 		if (err) {
@@ -231,3 +254,4 @@ exports.getItemTags = getItemTags;
 exports.getItemsWithTag = getItemsWithTag;
 exports.getTags = getTags;
 exports.serialize = serialize;
+exports.getItemsInLocRange = getItemsInLocRange;

@@ -14,9 +14,10 @@ function LocationActions(){
 	LocationActions.init = init;
 	LocationActions.setUploadAction = setUploadAction;
 
-	var placesBeforeDecimal = 3;
-	var placesAfterDecimal = 2;
-
+	var placesBeforeDecimal = 3,
+		placesAfterDecimal = 2,
+		displayW = 10,
+		displayH = 10;
 
 	var action;
 
@@ -24,11 +25,12 @@ function LocationActions(){
 		setUploadAction();
 	}
 
+
 	// more trouble, but doing this here because shortly I'll want to be 
 	// able to move about the map client side changing location without 
 	// (immediately) going back to server
 	function setUploadAction(){
-		action = buildLocationURL('upload',locX, locY);
+		action = buildLocationURL('upload',locX, locY, displayW, displayH);
 		// action = '/upload&x='+ locX.toFixed(2) + ',y='+locY.toFixed(2);
 		document.getElementById("upload_form").action = action;
 	}
@@ -36,13 +38,16 @@ function LocationActions(){
 
 	// code repetition, but I need the same function in nodeJS and client side
 	// so hard to see how to avoid this
-	function buildLocationURL(action, x, y){
+	function buildLocationURL(action, x, y, w, h){
 		var xPad = valToPaddedString(x);
 		var yPad = valToPaddedString(y);
+		var wPad = valToPaddedString(w);
+		var hPad = valToPaddedString(h);
 
 		return "/" + action + '&x=' + xPad + 
-			',y=' + yPad; 
+			',y=' + yPad +',w=' + wPad + ',h='+hPad; 
 	}
+
 
 	function valToPaddedString(val){
 		var valParts = val.toString().split(".",2);

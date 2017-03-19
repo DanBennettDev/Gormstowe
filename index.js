@@ -42,7 +42,7 @@ handle["*file*"] = fileRequestHandler.handle;
 
 // dynamic stuff
 requestHandlers.setup(imagePrep, dbHandling);
-handleMap.setup();
+handleMap.setup(dbHandling);
 handleUpload.setup(imagePrep, dbHandling);
 handle["/"] = requestHandlers.handle;
 handle["/explore"] = requestHandlers.explore;
