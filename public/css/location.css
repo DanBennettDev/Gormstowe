@@ -21,9 +21,7 @@
 .imageObject {
     position: absolute;
     /* position coords should should be to centre of image*/
-    margin-left: -50%;
-    margin-top: -50%;
-    /*transform: translate(-50%, -50%) ;*/
+    transform: translate(-50%, -50%) ;
     float: both;
 
 }
