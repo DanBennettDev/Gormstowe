@@ -12,6 +12,7 @@ var querystring = require("querystring"),
 
 var imageProcess;
 var dbAction;
+var handleMap;
 var tmpFolder = "./tmp/";
 var uploadFolder = "/img/uploads/";
 var acceptTypes = [
@@ -20,9 +21,10 @@ var acceptTypes = [
 	]
 
 
-function setup(imageProcessor, dbHandler) {
+function setup(imageProcessor, dbHandler, mapHandler) {
 	imageProcess = imageProcessor;
 	dbAction = dbHandler;
+	handleMap = mapHandler;
 }
 
 
@@ -73,14 +75,8 @@ function upload(response, request) {
 			dbAction.createItem(details, show);
 		}
 
-		// todo - this should be handled by a call to the database based on current "location"
-		function show() { // callback: wait til image processed then show
-			response.writeHead(200, {
-				"Content-Type": "text/html"
-			});
-			response.write("received image:<br/>");
-			response.write("<img src=." + uploadFolder + fileID + ".png>");
-			response.end();
+		function show() {
+			handleMap.location(response, request);
 		}
 	});
 }
