@@ -26,12 +26,10 @@ function LocationActions(){
 		setUploadAction();
 
 		document.getElementById("locationClicker")
-				.addEventListener("click", handleDisplayClick, false);
+			.addEventListener("click", handleDisplayClick, false);
 
 		addEventListener("keydown", handleKeyDown, false);
 		addEventListener("keyup", handleKeyUp, false);
-
-
 	}
 
 
