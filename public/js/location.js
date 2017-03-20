@@ -1,8 +1,7 @@
 
 
 // set upload location on form based on current position
-// locX and locY must be declared in the page
-// (these are set server side) 
+// locX and locY must be declared in the page and are set server side 
 
 var loc = LocationActions();
 
@@ -14,15 +13,25 @@ function LocationActions(){
 	LocationActions.init = init;
 	LocationActions.setUploadAction = setUploadAction;
 
-	var placesBeforeDecimal = 3,
-		placesAfterDecimal = 2,
-		displayW = 10,
-		displayH = 10;
+	const 	placesBeforeDecimal = 3,
+			placesAfterDecimal = 2,
+			displayW = 10,
+			displayH = 10;
 
-	var action;
+	var action, locXFine, locYFine;
 
 	function init(){
+		locXFine = locX;
+		locYFine = locY;
 		setUploadAction();
+
+		document.getElementById("locationClicker")
+				.addEventListener("click", handleDisplayClick, false);
+
+		addEventListener("keydown", handleKeyDown, false);
+		addEventListener("keyup", handleKeyUp, false);
+
+
 	}
 
 
@@ -30,7 +39,7 @@ function LocationActions(){
 	// able to move about the map client side changing location without 
 	// (immediately) going back to server
 	function setUploadAction(){
-		action = buildLocationURL('upload',locX, locY, displayW, displayH);
+		action = buildLocationURL('upload',locXFine, locYFine, displayW, displayH);
 		// action = '/upload&x='+ locX.toFixed(2) + ',y='+locY.toFixed(2);
 		document.getElementById("upload_form").action = action;
 	}
@@ -67,11 +76,38 @@ function LocationActions(){
 		valParts[1] =  valParts[1].substring(0,placesAfterDecimal);
 		if(valParts[1].length<placesAfterDecimal){
 			var padby = placesAfterDecimal - valParts[1].length;
-			return valparts[0]+'.'+valparts[1]+'0'.repeat(padby);
+			return valParts[0]+'.'+valParts[1]+'0'.repeat(padby);
 		}
-		return valparts[0]+'.'+valparts[1];
+		return valParts[0]+'.'+valParts[1];
 
 	}
+
+	function handleKeyDown(event){
+		if (event.keyCode == 17){// ctrlKey
+			document.getElementById("locationClicker").style.zIndex = 100;
+			console.log("pressed");
+		} 
+	}
+
+	function handleKeyUp(event){
+		if (event.keyCode == 17){// ctrlKey
+			document.getElementById("locationClicker").style.zIndex = -100;
+		} 
+	}
+
+
+	// clicks on locationClicker
+	function handleDisplayClick(event){
+		var xClick = event.clientX/event.currentTarget.offsetWidth;
+		var yClick = event.clientY/event.currentTarget.offsetHeight;
+		xClick = (xClick-0.5)*10.0; //(scale to-5 to 5)
+		yClick = (yClick-0.5)*10.0; 
+
+		locXFine = locX+xClick;
+		locYFine = locY+yClick;
+		setUploadAction();	
+	}
+
 
 	return LocationActions;
 

@@ -4,9 +4,12 @@
 	to points on the map
 */
 
-#locationDisplay {
-    position: relative;
-    margin-top: 2vh;
+#locationDisplay,
+#locationClicker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 15vh;
     margin-left: 5vh;
     margin-bottom: 2vh;
     height: 80vh;
@@ -15,6 +18,11 @@
     border-style: dotted;
     border-width: 1px;
     overflow: hidden;
+}
+
+#locationClicker {
+    /*changed to 100 by js when ctrl held down*/
+    z-index: -100;
 }
 
 
