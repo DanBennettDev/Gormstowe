@@ -7,13 +7,11 @@
 #locationDisplay,
 #locationClicker {
     position: absolute;
-    top: 15vh;
-    left: 5vh;
-    height: 80vh;
-    width: 90vw;
-    clear: both;
-    border-style: dotted;
-    border-width: 1px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    clear: both;;
     overflow: hidden;
 }
 
@@ -26,10 +24,40 @@
 #locationClicker {
     /*changed to 100 by js when ctrl held down*/
     z-index: -100;
-    background-color: green;
-    opacity: 0.1;
+    background-color: black;
+    opacity: 0.05;
 }
 
+
+#back {
+    position: absolute;
+    float: right;
+    top:0;
+    right:0;
+    font-size: 2em;
+    padding-right: 10px;
+    margin-top: 10px;
+    z-index: 1000;
+    clear: both;    
+
+}
+
+#upload {
+    position: absolute;
+    padding-top: 10px;
+    clear: both;
+    z-index: -100;
+    width: auto;
+    height: auto;
+    background-color: white;
+    opacity: 0.8;
+}
+
+input, select, button
+ {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
 
 .imageObject {
     position: absolute;
@@ -38,5 +66,8 @@
     float: both;
 
 }
+
+
+
 
 

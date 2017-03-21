@@ -91,8 +91,9 @@ function isValidType(thisFile){
 	}
 
 	for(var typ of acceptTypes){
-		console.log("check");
-		if("undefined" === typeof thisFile.upload.type 
+		console.log(typ);
+		console.log(typ);
+		if(!("undefined" === typeof thisFile.upload.type) 
 							&& thisFile.upload.type==typ){
 			return true;
 			console.log("valid");

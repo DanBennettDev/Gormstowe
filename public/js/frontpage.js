@@ -43,6 +43,8 @@ function Frontpage(){
 			// logo animation is too much of a focal point, remove to allow focus to shift to cars as they fade in
 			// but delay until it appears zooming screen has covered it
 			setTimeout(logoAnim.off, 400);
+			setTimeout(hideSlidingText, 400);
+
 			utility.doZoomFade(ghosts, fadeOuts, 6, displayMenu); // display menu again once fade is complete
 			utility.doJitter(ghosts, 10, 0.1, 4);
 		}
@@ -52,6 +54,11 @@ function Frontpage(){
 			logo.style.visibility = "visible";
 			logoAnim.startAnim();
 		}
+	}
+
+	function hideSlidingText(){
+		document.getElementById("slidingText").style.display = "none";
+
 	}
 
 	// not my work: taken directly from here, unmodified 

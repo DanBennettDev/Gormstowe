@@ -28,6 +28,9 @@ function LocationActions(){
 		document.getElementById("locationClicker")
 			.addEventListener("click", handleDisplayClick, false);
 
+		document.getElementById("closeMenu")
+			.addEventListener("click", hideMenu, false);
+
 		addEventListener("keydown", handleKeyDown, false);
 		addEventListener("keyup", handleKeyUp, false);
 	}
@@ -83,16 +86,27 @@ function LocationActions(){
 	function handleKeyDown(event){
 		if (event.keyCode == 17){// ctrlKey
 			document.getElementById("locationClicker").style.zIndex = 100;
-			console.log("pressed");
+			document.body.style.cursor = "crosshair";
 		} 
 	}
 
 	function handleKeyUp(event){
 		if (event.keyCode == 17){// ctrlKey
 			document.getElementById("locationClicker").style.zIndex = -100;
+			document.body.style.cursor = "default";
 		} 
 	}
 
+
+	function displayMenu(x,y){
+		document.getElementById("upload").style.zIndex = 150;
+		document.getElementById("upload").style.top = y+"px";
+		document.getElementById("upload").style.left = x+"px";
+	}
+
+	function hideMenu(){
+		document.getElementById("upload").style.zIndex = -150;
+	}
 
 	// clicks on locationClicker
 	function handleDisplayClick(event){
@@ -100,10 +114,11 @@ function LocationActions(){
 		var yClick = event.clientY/event.currentTarget.offsetHeight;
 		xClick = (xClick-0.5)*10.0; //(scale to-5 to 5)
 		yClick = (yClick-0.5)*10.0; 
-
 		locXFine = locX+xClick;
 		locYFine = locY+yClick;
 		setUploadAction();	
+		displayMenu(event.clientX,event.clientY)
+
 	}
 
 

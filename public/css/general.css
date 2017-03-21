@@ -35,7 +35,7 @@ a:hover:after {
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 3px;
+    bottom: 0.13em;
 
 }
 
@@ -99,7 +99,7 @@ a:hover:after {
 
 
 .seethru {
-    opacity:0.8;
+    opacity:0.9;
 }
 
 .reveal {
@@ -145,9 +145,6 @@ a:hover:after {
    padding-right: 0.2em;
 }
 
-#middleMenu ul li:hover:before {
-   color:red;
-}
 
 #middleMenu ul li {
     top:0px;
