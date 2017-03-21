@@ -41,13 +41,12 @@ function upload(response, request) {
 
 		// use UUID to prevent overwrite
 		var fileID = uuid.v4();
-		if(!isValidType(files.upload.type)){
+		if(!isValidType(files)){
 			// TODO - handle client side, this is just a batstop
-			response.write(explorePageTemplate);
-			response.end();
-			console.log("invalid type: " +files.upload.type);
+			console.log("invalid type or no file");
+			show();
 			return;
-		}
+		} 
 
 		var fileURL = uploadFolder + fileID + ".png";
 		//convert to PNG
@@ -85,13 +84,23 @@ function upload(response, request) {
 
 
 
-function isValidType(thisType){
+function isValidType(thisFile){
+	if("undefined" === typeof thisFile || 
+		"undefined" === typeof thisFile.upload ){
+		return false;
+	}
+
 	for(var typ of acceptTypes){
-		if(thisType==typ){
+		console.log("check");
+		if("undefined" === typeof thisFile.upload.type 
+							&& thisFile.upload.type==typ){
 			return true;
+			console.log("valid");
 		}
 	}
+	console.log("invalid");
 	return false;
+
 }
 
 exports.upload = upload;
