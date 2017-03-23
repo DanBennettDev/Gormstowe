@@ -30,6 +30,40 @@ function createUser(name, email, pwrd, callback) {
 	});
 }
 
+function run(command, params, callback, errName){
+   db.serialize(function(){
+      var stmt = db.prepare(command);
+      stmt.run(   params,
+               function(err) {
+                  if (err) console.log(errName +' error: ' + err.message);
+                  if(callback){callback();}
+            } );
+   })
+}
+
+function get(command, params, callback, errName){
+   db.serialize(function(){
+      var stmt = db.prepare(command);
+      stmt.get(   params,
+               function(err, row) {
+                  if (err) console.log(errName +' error: ' + err.message);
+                  if(callback){callback(row);}
+            } );
+   })
+}
+
+function all(command, params, callback, errName){
+   db.serialize(function(){
+      var stmt = db.prepare(command);
+      stmt.all(   params,
+               function(err, rows) {
+                  if (err) console.log(errName +' error: ' + err.message);
+                  if(callback){callback(rows);}
+            } );
+   })
+}
+
+
 function createItem(details, callback) {
 	if (details.$ownerID == null || details.$positionX == null 
 		|| details.$positionY == null  || details.$name == null || 
@@ -49,87 +83,55 @@ function createItem(details, callback) {
 	}
 	details.$captionText = details.$captionText || '';
 
-	db.run(commands["createItem"], details, function(err) {
-		if (err) console.log('createItem error: ' + err.message);
-		if(callback){callback();}
-	});
+   run(commands["createItem"], details, callback, 'createItem');
 }
+
 
 function createTag(name, description, callback) {
-	db.run(commands["createTag"], {
-		$name: name,
-		$description: description
-	}, function(err) {
-		if (err) console.log('createTag error: ' + err.message);
-		if(callback){callback();}
-	});
+   var details =  {  $name: name,
+                     $description: description
+                  };
+   run(commands["createTag"], details, callback, 'createTag');
 }
 
+
 function tagItem(itemID, tagName, callback) {
-	db.run(commands["tagItem"], {
-		$itemID: itemID,
-		$tagName: tagName
-	}, function(err) {
-		if (err) console.log('tagItem error: ' + err.message);
-		if(callback){callback();}
-	});
+   var details =  {  $itemID: itemID,
+                     $tagName: tagName
+                  };
+   run(commands["tagItem"], details, callback, 'tagItem');
 }
+
 
 function getUserInfo(key, rowAction) {
 	const runThis = typeof key == 'string' ? 
 				commands["getUserInfoName"] : commands["getUserInfoID"];
 
-	db.get(runThis, [key], function(err, row) {
-		if (err) {
-			console.log('getUserInfo error: ' + err.message);
-		} else {
-			rowAction(row);
-		}
-	});
+   get(runThis, key, rowAction, 'getUserInfo');
 }
+
 
 function getItemInfo(id, rowAction) {
-	db.get(commands["getItemInfo"], [id], function(err, row) {
-		if (err) {
-			console.log('getItemInfo error: ' + err.message);
-		} else {
-			rowAction(row);
-		}
-	});
+   get(commands["getItemInfo"], id, rowAction,'getItemInfo');
 }
 
-function getUserItems(key, rowAction) {
-	const runThis = typeof key == 'string' ?
-					commands["getUserItemsName"] : commands["getUserItemsID"];
 
-	db.all(runThis, [key], function(err, row) {
-		if (err) {
-			console.log('getUserItems error: ' + err.message);
-		} else {
-			rowAction(row);
-		}
-	});
+function getUserItems(key, rowAction) {
+   const runThis = typeof key == 'string' ?
+               commands["getUserItemsName"] : commands["getUserItemsID"];
+
+   all(runThis, key, rowAction, 'getUserItems');
 }
 
 function getItemTags(itemID, rowAction) {
-	db.all(commands["getItemTags"], [itemID], function(err, row) {
-		if (err) {
-			console.log('getItemTags error: ' + err.message);
-		} else {
-			rowAction(row);
-		}
-	});
+   all(commands["getItemTags"], itemID, rowAction, 'getItemTags');
 }
 
+
 function getItemsWithTag(tagID, rowAction) {
-	db.all(commands["getItemsWithTag"], [tagID], function(err, row) {
-		if (err) {
-			console.log('getItemsWithTag error: ' + err.message);
-		} else {
-			rowAction(row);
-		}
-	});
+   all(commands["getItemsWithTag"], tagID, rowAction, 'getItemsWithTag');
 }
+
 
 function getItemsInLocRange(fromX, toX, fromY, toY, rowAction) {
 	var details = 
@@ -139,32 +141,19 @@ function getItemsInLocRange(fromX, toX, fromY, toY, rowAction) {
 			$toY: toY
 		};
 
-	db.all(commands["getItemsInLocRange"], details, function(err, rows) {
-		if (err) {
-			console.log('getItemsInLocRange error: ' + err.message);
-		} else {
-			rowAction(rows);
-		}
-	});
+   all(commands["getItemsInLocRange"], details, rowAction, 'getItemsInLocRange');
 }
 
 
 
-
-
 function getTags(rowAction) {
-	db.all('select * from Tag;', [], function(err, row) {
-		if (err) {
-			console.log('getTags error: ' + err.message);
-		} else {
-			rowAction(row);
-		}
-	});
+   all('select * from Tag;', [], rowAction, 'getTags');
 }
 
 function serialize(func){
 	db.serialize(func);
 }
+
 
 
 function test(filename) {

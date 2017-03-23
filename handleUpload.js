@@ -19,6 +19,9 @@ var acceptTypes = [
 		"image/png","image/gif",
 		"image/jpeg","image/jpeg"
 	]
+var defaultCaption = "enter text";
+var defaultName = "enter name";
+
 
 
 function setup(imageProcessor, dbHandler, mapHandler) {
@@ -54,7 +57,11 @@ function upload(response, request) {
 								logImage);
 				// "./public" + uploadFolder + fileID + ".png", show));
 
-
+		var caption = fields.captionText;
+		var name = fields.name;
+		if(caption==defaultCaption){caption="";}
+		if(name==defaultName){name="";}
+		console.log(name + " " + caption);
 
 		function logImage(err, info){
 			if (err) {
@@ -62,14 +69,15 @@ function upload(response, request) {
 			}
 			var details = 
 				{	$ownerID: 1, // TODO : dummy
-					$positionX: locX, // TODO : dummy
-					$positionY: locY, // TODO : dummy
-					$name: fileID,  // TODO : dummy
+					$positionX: locX,
+					$positionY: locY,
+					$name: name, 
 					$fileURL: fileURL,
 					$functionType: "object",
 					$type: "image",
 					$image_Width: info.width,
-					$image_Height: info.height
+					$image_Height: info.height,
+               		$captionText: caption
 				};
 			dbAction.createItem(details, show);
 		}
