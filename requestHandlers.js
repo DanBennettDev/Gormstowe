@@ -35,7 +35,7 @@ function explore(response, request) {
 			var x = (i%9)*10;
 			var y = Math.floor(i/9) * 10;
 			// todo - 10 hardcoded for W and height - will likely want to change this later
-			var thisLink = link + requestParser.buildLocationURL("location",x,y, squareWidth, squareHeight)+'">';
+			var thisLink = link + requestParser.buildLocationURL("location",x,y, squareWidth, squareHeight, true)+'">';
 			var newline = thisLink + square + "</div></a>";
 			theMap = theMap + newline;
 		}

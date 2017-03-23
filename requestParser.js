@@ -19,7 +19,6 @@ function getParamString(request){
 	var paramStart = requestAction.indexOf("&");
 
 	if(paramStart==-1){
-		console.log("error - no parameters in location request")
 		return;
 	}
 	return requestAction.substring(paramStart,requestAction.length+1);
@@ -31,14 +30,18 @@ function getParam(paramString, part){
 			paramString.indexOf(part)+2+partLen+ placesBeforeDecimal+placesAfterDecimal);
 }
 
-function buildLocationURL(action, x, y, w, h){
+function buildLocationURL(action, x, y, w, h, showHelp){
 	var xPad = valToPaddedString(x);
 	var yPad = valToPaddedString(y);
 	var wPad = valToPaddedString(w);
 	var hPad = valToPaddedString(h);
-
-	return "/" + action + '&x=' + xPad + 
+	var params = "/" + action + '&x=' + xPad + 
 		',y=' + yPad +',w=' + wPad + ',h='+hPad; 
+
+	if(showHelp){
+		params+= ',help='+ valToPaddedString(1);
+	}
+	return params;
 }
 
 function valToPaddedString(val){

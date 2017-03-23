@@ -45,27 +45,142 @@
 #upload {
     position: absolute;
     padding-top: 10px;
-    clear: both;
+    padding-right: 10px;
+    float: both;
     z-index: -100;
     width: auto;
     height: auto;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%) ;
+
     background-color: white;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
-input, select, button
- {
-    margin-left: 10px;
-    margin-bottom: 10px;
+#uploadMarker{
+    position: absolute;
+    z-index: -150;
+    font-size: 2em;
+    font-family: sans-serif;
+    height: auto;
+    width: auto;
+    transform: translate(-50%, -50%) ;
+    mix-blend-mode: exclusion;
+    color: white;
+    /*cycle colours so it shows on any bg*/
+    -webkit-animation: color-change 1s infinite;
+    -moz-animation: color-change 1s infinite;
+    -o-animation: color-change 1s infinite;
+    -ms-animation: color-change 1s infinite;
+    animation: color-change 1s infinite;
+
+
 }
+
+@-webkit-keyframes color-change {
+    0% { color: red; }
+    25% { color: white; }
+    50% { color: blue; }  
+    75% { color: black; }  
+    100% { color: red; }
+}
+@-moz-keyframes color-change {
+    0% { color: red; }
+    25% { color: white; }
+    50% { color: blue; }  
+    75% { color: black; }  
+    100% { color: red; }
+}
+@-ms-keyframes color-change {
+    0% { color: red; }
+    25% { color: white; }
+    50% { color: blue; }  
+    75% { color: black; }  
+    100% { color: red; }
+}
+@-o-keyframes color-change {
+    0% { color: red; }
+    25% { color: white; }
+    50% { color: blue; }  
+    75% { color: black; }  
+    100% { color: red; }
+}
+@keyframes color-change {
+    0% { color: red; }
+    25% { color: white; }
+    50% { color: blue; }  
+    75% { color: black; }  
+    100% { color: red; }
+}
+
 
 .imageObject {
     position: absolute;
     /* position coords should should be to centre of image*/
     transform: translate(-50%, -50%) ;
     float: both;
+    clear: none;
 
 }
+
+.captionLink,
+.caption {
+    position:absolute;
+    top: 10%;
+    left:10%;
+    float:both;
+    clear: none;
+    width: auto;
+    height: auto;
+    opacity: 80%;
+    padding: 4px;
+}
+
+
+
+.captionLink {
+    z-index: 150;
+    visibility: visible;
+    opacity: 0.4;
+    background-color:white;
+}
+.captionLink:hover {
+    opacity: 1;
+}
+
+.captionLink:hover:after {
+    border: none;   
+    /*override default link style which uses bottom border*/
+}
+
+
+.caption {
+    z-index: -150;
+    visibility: hidden;
+    opacity: 0.8;
+    background-color: white;
+    padding-bottom: 2em;
+    max-width: 300px;
+}
+
+.closeCaption{
+    bottom:5px;
+    right:5px;
+    position:absolute;
+    clear: both; 
+}
+
+input, select, button, textarea
+ {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+
+
 
 
 

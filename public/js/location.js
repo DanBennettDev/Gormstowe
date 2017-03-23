@@ -12,6 +12,9 @@ function LocationActions(){
 	"use strict"
 	LocationActions.init = init;
 	LocationActions.setUploadAction = setUploadAction;
+	LocationActions.showCaption = showCaption;
+	LocationActions.closeCaption = closeCaption;
+
 
 	const 	placesBeforeDecimal = 3,
 			placesAfterDecimal = 2,
@@ -100,12 +103,32 @@ function LocationActions(){
 
 	function displayMenu(x,y){
 		document.getElementById("upload").style.zIndex = 150;
-		document.getElementById("upload").style.top = y+"px";
-		document.getElementById("upload").style.left = x+"px";
+		var marker = document.getElementById("uploadMarker");
+		marker.style.zIndex = 150;
+		marker.style.top = y+"px";
+		marker.style.left = x+"px";
 	}
 
 	function hideMenu(){
 		document.getElementById("upload").style.zIndex = -150;
+		document.getElementById("uploadMarker").style.zIndex = -150;
+
+	}
+
+	function showCaption(idNo){
+		document.getElementById("caption"+idNo).style.zIndex = 150;
+		document.getElementById("caption"+idNo).style.visibility = "visible";
+		document.getElementById("captionLink"+idNo).style.zIndex = -150;
+		document.getElementById("captionLink"+idNo).style.visibility = "hidden";
+
+
+	}
+
+	function closeCaption(idNo){
+		document.getElementById("captionLink"+idNo).style.zIndex = 150;
+		document.getElementById("captionLink"+idNo).style.visibility = "visible";
+		document.getElementById("caption"+idNo).style.zIndex = -150;
+		document.getElementById("caption"+idNo).style.visibility = "hidden";
 	}
 
 	// clicks on locationClicker

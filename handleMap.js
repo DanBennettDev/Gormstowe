@@ -68,7 +68,7 @@ function location(response, request){
 				var relX = 100*(thisRow.positionX - xStart) / (xEnd - xStart);
 				var relY = 100*(thisRow.positionY - yStart) / (yEnd - yStart);
 
-				var hasCaption = thisRow.caption.length >=0 ? 1 : 0;
+				var hasCaption = thisRow.caption.length >0 ? 1 : 0;
 				// THE DIV
 				var insert = '<div id="imageObject'+ thisRow.itemID + '" ';
 				// store world-position as data to separate from client-side element positioning
@@ -80,8 +80,10 @@ function location(response, request){
 				// THE IMAGE
 				insert += 	'><img src="'+thisRow.URL+'"></img>';
 				
-				if(hasCaption==0){
-					insert+='<div class="caption">'+thisRow.captionText+'</div>';
+				if(hasCaption==1){
+					insert+='<div id="caption'+thisRow.itemID+'" class="caption">'+thisRow.caption+'<br/><a onClick="loc.closeCaption('+thisRow.itemID + '); return false;" class="closeCaption" href="#">close</a></div>';
+					insert+='<div id="captionLink'+thisRow.itemID+'" class="captionLink"><a class="showCaption" onClick="loc.showCaption('+thisRow.itemID + '); return false;" href="#">[...]</a></div>';
+
 				}
 				insert +=	'</div>';	
 
