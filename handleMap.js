@@ -74,22 +74,25 @@ function location(response, request){
 
 				var hasCaption = thisRow.caption.length >0 ? 1 : 0;
 				// THE DIV
-				var insert = '<div id="imageObject'+ thisRow.itemID + '" ';
+				var insert = '<div id="imageObject'+ thisRow.itemID + '" class="imageObject" ';
 				// store world-position as data to separate from client-side element positioning
-				insert += 	'class="imageObject" data-posX="' + thisRow.positionX + '"';
-				insert +=	' data-posY="' + thisRow.positionY + '"';
-				insert +=	' data-hasCaption="' + hasCaption + '"';
-				insert +=	' style="top:' + relY + '%; left:'+ relX +'%;"';
+				var data = 	'data-posX="' + thisRow.positionX + '"';
+				data +=	' data-posY="' + thisRow.positionY + '"';
+				data +=	' data-hasCaption="' + hasCaption + '"';
+				data +=	' style="top:' + relY + '%; left:'+ relX +'%;"';
 				
+				insert += data;
 				// THE IMAGE
 				insert += 	'><img src="'+thisRow.URL+'"></img>';
+				insert +=	'</div>';	
 				
+				// THE CAPTION (separate div for Z-index purposes)
 				if(hasCaption==1){
+					insert+='<div id=captionElems'+thisRow.itemID +'" class="captionObject" '+ data +'>';
 					insert+='<div id="caption'+thisRow.itemID+'" class="caption">'+thisRow.caption+'<br/><a onClick="loc.closeCaption('+thisRow.itemID + '); return false;" class="closeCaption" href="#">close</a></div>';
 					insert+='<div id="captionLink'+thisRow.itemID+'" class="captionLink"><a class="showCaption" onClick="loc.showCaption('+thisRow.itemID + '); return false;" href="#">[...]</a></div>';
-
+					insert+='</div>';
 				}
-				insert +=	'</div>';	
 
 
 				return insert;			

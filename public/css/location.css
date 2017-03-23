@@ -52,8 +52,12 @@
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%) ;
-    background-color: white;
+    background-color: rgb(253,253,253);
     opacity: 0.9;
+    border-style: dotted;
+    border-width: 1px;
+    border-color: rgb(80,80,80);
+    border-radius: 5px;
 }
 
 
@@ -116,13 +120,17 @@
 }
 
 
-.imageObject {
+.imageObject, .captionObject{
     position: absolute;
     /* position coords should should be to centre of image*/
     transform: translate(-50%, -50%) ;
     float: both;
     clear: none;
+}
 
+.captionObject{
+    z-index: 50;
+    width: auto;
 }
 
 .captionLink,
@@ -162,6 +170,8 @@
     background-color: white;
     padding-bottom: 2em;
     max-width: 300px;
+    min-width: 200px;
+
 }
 
 .closeCaption{
