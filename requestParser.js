@@ -19,7 +19,7 @@ function getParamString(request){
 	var paramStart = requestAction.indexOf("&");
 
 	if(paramStart==-1){
-		return;
+		return 0;
 	}
 	return requestAction.substring(paramStart,requestAction.length+1);
 }

@@ -27,9 +27,13 @@ function location(response, request){
 		var y = parseFloat(requestParser.getParam(action,'y'));
 		var w = parseFloat(requestParser.getParam(action,'w'));
 		var h = parseFloat(requestParser.getParam(action,'h'));
+		var help = parseFloat(requestParser.getParam(action,'help'))==1.0 ? true : false;
 
+		// populate page variables
 		window.document.getElementById("initVariables").innerHTML 
-							= "var locX= " +x+"; \nvar locY= " +y+";";
+							= "var locX= " +x
+							+"; \nvar locY= " +y+";"
+							+"; \nvar help= " +help+";"
 
 		//window.document.getElementById("upload_form").action = action;
 		populateMap();

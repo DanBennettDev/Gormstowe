@@ -14,6 +14,8 @@ function LocationActions(){
 	LocationActions.setUploadAction = setUploadAction;
 	LocationActions.showCaption = showCaption;
 	LocationActions.closeCaption = closeCaption;
+	LocationActions.closeHelp = closeHelp;
+	LocationActions.showHelp = showHelp;
 
 
 	const 	placesBeforeDecimal = 3,
@@ -27,12 +29,16 @@ function LocationActions(){
 		locXFine = locX;
 		locYFine = locY;
 		setUploadAction();
+		if(help){showHelp();}
 
 		document.getElementById("locationClicker")
 			.addEventListener("click", handleDisplayClick, false);
 
 		document.getElementById("closeMenu")
 			.addEventListener("click", hideMenu, false);
+
+		document.getElementById("closeHelp")
+			.addEventListener("click", closeHelp, false);
 
 		addEventListener("keydown", handleKeyDown, false);
 		addEventListener("keyup", handleKeyUp, false);
@@ -120,8 +126,6 @@ function LocationActions(){
 		document.getElementById("caption"+idNo).style.visibility = "visible";
 		document.getElementById("captionLink"+idNo).style.zIndex = -150;
 		document.getElementById("captionLink"+idNo).style.visibility = "hidden";
-
-
 	}
 
 	function closeCaption(idNo){
@@ -130,6 +134,19 @@ function LocationActions(){
 		document.getElementById("caption"+idNo).style.zIndex = -150;
 		document.getElementById("caption"+idNo).style.visibility = "hidden";
 	}
+
+	function showHelp(){
+		document.getElementById("help").style.zIndex = 150;
+		document.getElementById("help").style.visibility = "visible";
+	}
+
+	function closeHelp(){
+		document.getElementById("help").style.zIndex = -150;
+		document.getElementById("help").style.visibility = "hidden";
+	}
+
+
+
 
 	// clicks on locationClicker
 	function handleDisplayClick(event){
