@@ -68,6 +68,9 @@ a:hover:after {
     left: 50vw;
     margin-right: -50vw;
     transform: translate(-50%, -50%) ;
+    -ms-transform: translate(-50%, -50%) ; /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) ; /* Chrome, Safari, Opera */
+
 }
 
 .middle70vh {
@@ -85,6 +88,9 @@ a:hover:after {
     left: 50vw;
     margin-right: -50vw;
     transform: translate(-50%, -50%) ;
+    -ms-transform: translate(-50%, -50%) ; /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) ; /* Chrome, Safari, Opera */
+
 }
 
 

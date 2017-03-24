@@ -39,8 +39,55 @@
     margin-top: 10px;
     z-index: 1000;
     clear: both;    
+}
+
+#navNorth {
+    transform: translate(-50%, 0%) ;
+    -ms-transform: translate(-50%, 0%) ; /* IE 9 */
+    -webkit-transform: translate(-50%, 0%) ; /* Chrome, Safari, Opera */
+    top:0;
+    left: 50vw;
+}
+
+#navSouth {
+    transform: translate(-50%, 0%) ;
+    -ms-transform: translate(-50%, 0%) ; /* IE 9 */
+    -webkit-transform: translate(-50%, 0%) ; /* Chrome, Safari, Opera */
+    bottom:0;
+    left: 50vw;
+}
+
+#navEast {
+    transform: translate(0%, -50%) ;
+    -ms-transform: translate(0%, -50%) ; /* IE 9 */
+    -webkit-transform: translate(0%, -50%) ; /* Chrome, Safari, Opera */
+    top:50vh;
+    right: 0;
+}
+
+#navWest {
+    transform: translate(0%, -50%) ;
+    -ms-transform: translate(0%, -50%) ; /* IE 9 */
+    -webkit-transform: translate(0%, -50%) ; /* Chrome, Safari, Opera */
+    top:50vh;
+    left: 0;
+}
+
+.nav {
+    position: absolute;
+    z-index: 100;
+    opacity: 0.2;
 
 }
+
+.nav:hover {
+    opacity: 0.7;
+}
+
+.nav:hover:after {
+    border: 0; /* override normal underline behaviour*/
+}
+
 
 #upload, #help  {
     position: absolute;
@@ -52,6 +99,8 @@
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%) ;
+    -ms-transform: translate(-50%, -50%) ; /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) ; /* Chrome, Safari, Opera */
     background-color: rgb(253,253,253);
     opacity: 0.9;
     border-style: dotted;
@@ -59,8 +108,6 @@
     border-color: rgb(80,80,80);
     border-radius: 5px;
 }
-
-
 
 
 #uploadMarker{
@@ -71,6 +118,8 @@
     height: auto;
     width: auto;
     transform: translate(-50%, -50%) ;
+    -ms-transform: translate(-50%, -50%) ; /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) ; /* Chrome, Safari, Opera */
     mix-blend-mode: exclusion;
     color: white;
     /*cycle colours so it shows on any bg*/
@@ -79,8 +128,6 @@
     -o-animation: color-change 1s infinite;
     -ms-animation: color-change 1s infinite;
     animation: color-change 1s infinite;
-
-
 }
 
 @-webkit-keyframes color-change {
@@ -124,6 +171,8 @@
     position: absolute;
     /* position coords should should be to centre of image*/
     transform: translate(-50%, -50%) ;
+    -ms-transform: translate(-50%, -50%) ; /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) ; /* Chrome, Safari, Opera */
     float: both;
     clear: none;
 }
@@ -187,9 +236,17 @@ input, select, button, textarea
     margin-bottom: 10px;
 }
 
+.north, .south {
+    min-width: 100px;
+    width: 8vw;
+    height: auto;
+}
 
-
-
+.east, .west  {
+    min-height:100px;
+    height: 8vw; /* w is intentional here, to keep proportions*/
+    width: auto;
+}
 
 
 

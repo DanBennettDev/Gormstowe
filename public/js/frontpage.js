@@ -1,7 +1,7 @@
 
 // code for the front page actions
 
-var logoAnim = new svg_element_switcher("logo", "./img/text_viisit_frag_bak.svg");
+var logoAnim = new svg_element_switcher("logo", "./img/text_viisit_frag.svg");
 var utility = Utility();
 var frontpage = Frontpage()
 
