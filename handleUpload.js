@@ -8,20 +8,12 @@ var querystring = require("querystring"),
 	uuid = require('node-uuid'),
 	jsdom = require("jsdom"),
 	url = require("url"),
-	requestParser = require("./requestParser");
+	requestParser = require("./requestParser"),
+	globals = require("./globals");
 
 var imageProcess;
 var dbAction;
 var handleMap;
-var tmpFolder = "./tmp/";
-var uploadFolder = "/img/uploads/";
-var acceptTypes = [
-		"image/png","image/gif",
-		"image/jpeg","image/jpeg"
-	]
-var defaultCaption = "enter text";
-var defaultName = "enter name";
-
 
 
 function setup(imageProcessor, dbHandler, mapHandler) {
@@ -51,7 +43,7 @@ function upload(response, request) {
 			return;
 		} 
 
-		var fileURL = uploadFolder + fileID + ".png";
+		var fileURL = globals.uploadFolder + fileID + ".png";
 		//convert to PNG
 		imageProcess.convertPNG(files.upload.path, "./public" + fileURL, 
 								logImage);
@@ -59,8 +51,8 @@ function upload(response, request) {
 
 		var caption = fields.captionText;
 		var name = fields.name;
-		if(caption==defaultCaption){caption="";}
-		if(name==defaultName){name="";}
+		if(caption==globals.defaultCaption){caption="";}
+		if(name==globals.defaultName){name="";}
 		console.log(name + " " + caption);
 
 		function logImage(err, info){
@@ -98,7 +90,7 @@ function isValidType(thisFile){
 		return false;
 	}
 
-	for(var typ of acceptTypes){
+	for(var typ of globals.acceptImageTypes){
 		console.log(typ);
 		console.log(typ);
 		if(!("undefined" === typeof thisFile.upload.type) 

@@ -20,7 +20,7 @@ function LocationActions() {
 		placesAfterDecimal = 2,
 		displayW = 10,
 		displayH = 10,
-		navOffset = 5,
+		navOffset = 2.5,
 		maxW = 100,
 		maxH = 100;
 

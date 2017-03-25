@@ -23,15 +23,14 @@ var server = require("./server"),
 	handleUpload = require("./handleUpload"),
 	fileRequestHandler = require("./fileHandler"),
 	imagePrep = require("./imagePrep"),
-	dbHandling = require("./dbHandling");
+	dbHandling = require("./dbHandling"),
+	globals = require("./globals");
 
 
-var port = 8080
 
 // setup image handling
-var maxImageWidth = 800, maxImageHeight = 800;
-imagePrep.setup(maxImageWidth, maxImageHeight);
-dbHandling.setup("./db/db1.db");
+imagePrep.setup(globals.maxImageWidth, globals.maxImageHeight);
+dbHandling.setup(globals.db_location);
 
 // setup & connect request handlers
 var handle = {};
@@ -49,6 +48,6 @@ handle["/explore"] = requestHandlers.explore;
 handle["/upload"] = handleUpload.upload;
 handle["/location"] = handleMap.location;
 
-server.start(port, router.route, handle);
+server.start(globals.port, router.route, handle);
 
 //dbHandling.test();

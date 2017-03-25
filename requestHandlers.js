@@ -8,10 +8,10 @@ var querystring = require("querystring"),
 	uuid = require('node-uuid'),
 	jsdom = require("jsdom"),
 	url = require("url"),
-	requestParser = require("./requestParser");
+	requestParser = require("./requestParser"),
+	globals = require("./globals");
 
 var explorePageTemplate;
-var squareWidth = 10, squareHeight = 10;
 
 function setup(imageProcessor, dbHandler) {
 	explorePageTemplate = fs.readFileSync("./templates/explore.html", 'utf8');
@@ -35,7 +35,8 @@ function explore(response, request) {
 			var x = (i%9)*10;
 			var y = Math.floor(i/9) * 10;
 			// todo - 10 hardcoded for W and height - will likely want to change this later
-			var thisLink = link + requestParser.buildLocationURL("location",x,y, squareWidth, squareHeight, true)+'">';
+			var thisLink = link + requestParser.buildLocationURL("location",x,y, 
+							globals.gridSquareHeight, globals.gridSquareHeight, true)+'">';
 			var newline = thisLink + square + "</div></a>";
 			theMap = theMap + newline;
 		}

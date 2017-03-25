@@ -6,7 +6,8 @@ var querystring = require("querystring"),
 	fs = require("fs"),
 	jsdom = require("jsdom"),
 	url = require("url"),
-	requestParser = require("./requestParser");
+	requestParser = require("./requestParser"),
+	globals = require("./globals");
 
 var locationPageTemplate, 
 	dbAction;
@@ -40,10 +41,16 @@ function location(response, request){
 
 
 		function populateMap(){
-			var xStart = x-w/2,	xEnd = x+w/2;
-			var yStart = y-h/2, yEnd = y+h/2;
+			var xStart = x-w/2,	
+				xEnd = x+w/2;
+				var yStart = y-h/2, 
+				yEnd = y+h/2;
 
-			dbAction.getItemsInLocRange(xStart, xEnd, yStart, yEnd, insertItems);
+			dbAction.getItemsInLocRange(xStart - globals.maxImageWidth, 
+										xEnd + globals.maxImageWidth, 
+										yStart - globals.maxImageHeight, 
+										yEnd + globals.maxImageHeight, 
+										insertItems);
 
 			function insertItems(rows){
 				var mapContents="";
@@ -88,6 +95,7 @@ function location(response, request){
 				
 				// THE CAPTION (separate div for Z-index purposes)
 				if(hasCaption==1){
+					
 					insert+='<div id=captionElems'+thisRow.itemID +'" class="captionObject" '+ data +'>';
 					insert+='<div id="caption'+thisRow.itemID+'" class="caption">'+thisRow.caption+'<br/><a onClick="loc.closeCaption('+thisRow.itemID + '); return false;" class="closeCaption" href="#">close</a></div>';
 					insert+='<div id="captionLink'+thisRow.itemID+'" class="captionLink"><a class="showCaption" onClick="loc.showCaption('+thisRow.itemID + '); return false;" href="#">[...]</a></div>';
