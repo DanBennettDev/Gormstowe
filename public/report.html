@@ -12,7 +12,6 @@
 <body id="report">
 <div id="back"><a href="/"><em>BACK</em></a></div>
 <div id="reportText">
-<img src="/img/selfie.svg" maxwidth="80%"></img>
 
 <h1>Overview</h1>
 <p>This site is a bit of an experiment. A friend of mine is a writer, and we've talked for a while about how we might approach a group collaborative fiction writing on the internet, and we had the idea of a site where users could navigate around a space, and leave "objects" (images/sounds), attach texts to them, and create links between objects by tagging them, to create narratives that others could follow. The site as it stands is a sketch towards that idea. At present there is no tagging (or other post-upload altering) of objects. There is also no handling of user profiles.</p>
@@ -42,15 +41,15 @@ I didn't use any framework, just raw Node and JS with some packages for the form
 
 My estimates and justifications:
 <ul>
-<li><strong>A for HTML</strong><br/>
-I wrote all the HTML by hand, no framework, and wrote a simple bash script to test my dynamic pages  (copied into the test folder). Since image layering is a central issue in my design I had to give thought to nesting of divs, in order to make elements' Z positions . For example captions are not nested beneath their objects, though that might immediately seem to make most since, since all captions must be above all images, and nested z-indexes only apply within their own heirarchy.</li>
-<li><strong>A for CSS</strong><br/>
-Again, all written by hand. The "rushing-confetti" text animation on the front page, is handled purely in CSS and HTML. I designed my CSS such that all pages are usefully responsive to screen size and dimension.  I also gained experience manipulating style elements with JS to perform animation, and generate pages. I used elements of CSS up to version 3, and modern CSS techniques are integral to many of the site's effects - it is hard to see how they could have been done otherwise, and in any case, the site will likely perform very slowly on older browsers. As such, I have not tried too hard to support older browsers, but where possible I have made efforts to ensure compatibility - including <code>webkit</code> and <code>ms</code> versions of translate instructions, for example. Where CSS animation proved poor on a modern platform (e.g. the front page's "rushing confetti" text-animation works badly on firefox) I made sure it was disabled for that platform.  
-
-Due to the demands of the animation effects and responsiveness I wanted to implement, I had to consider reasonably advanced CSS considerations like overflow handling, true-centering of images and divs of unknown size.  
-
+<li><strong>A for HTML</strong>
+<p>I wrote all the HTML by hand, no framework, and wrote a simple bash script to test my dynamic pages  (copied into the test folder). Since image layering is a central issue in my design I had to give thought to nesting of divs and its effect on z-positions. For example, in the main "explore" page, object captions are not nested beneath their objects in the document tree, though nesting in this way might have seemed the obvious approach. This is because all captions must display in front of all images, and z-indexes for nested objects apply only relative to other objects at the same level of the tree. At overall page level, the parent's z-index is decisive for all elements nested within it.</p></li>
+<li><strong>A for CSS</strong><p>
+Again, all written by hand. The "rushing-confetti" text animation on the front page, is handled purely in CSS and HTML. I designed my CSS such that all pages are usefully responsive to screen size and dimension, scaling against viewport size.  I also gained experience manipulating style elements with JS to perform animation, and generate pages. I used elements of CSS up to version 3, and modern CSS techniques are integral to many of the site's effects - it is hard to see how they could have been done otherwise, and in any case, the site will likely perform very slowly on older browsers. As such, I have not tried too hard to support older browsers, but where possible I have made efforts to ensure compatibility - for example including <code>webkit</code> and <code>ms</code> versions of translate instructions. Where CSS animation performed poorly on a modern platform (e.g. the front page's "rushing confetti" text-animation works badly on firefox) I made sure it was disabled for that platform.  
+</p>
+<p>Due to the demands of the animation effects and responsiveness I wanted to implement, I had to consider reasonably advanced CSS considerations like overflow handling, z-index nesting, and accurate, dynamic centering of elements of arbitrary size.  </p>
 </li>
-<li><strong>A for JS</strong><br/>
+
+<li><strong>A for JS</strong>
 <p>I put much of my energy into using JS to generate animation effects for the front page. I coded these animation transitions by hand rather than using webkit CSS effects as I wanted greater control over event-timing, so I could build an atmospheric sequence of events, and so the animations would not look "stock".</p>
 
 <p>I also make use of JS to handle menus, and the user interface - giving feedback on actions by indicating where elements will be placed, and keeping menus uncluttered and easy to follow by only showing the relevant elements for the chosen options.
@@ -77,7 +76,9 @@ Due to the demands of the animation effects and responsiveness I wanted to imple
 
 <p>The text animation perhaps doesn't look much, but though I initially expected this to be simple, I found it quite hard to work out how to do it in SVG. If I hadn't been doing this course I'd have ditched SVG and made an animated GIF, just to save time, but I'm now glad I took the opportunity to dig into the inner workings of the SVG standard. Having generated the image in inkscape, cutting the paths to generate the fragmented elements, I had to manually edit the SVG file, to insert ids into elements. I then discovered that it seems not possible to access the inner elements of a non-inline SVG via the DOM. As such I had to find a way to insert the SVG code into the page (I did this with d3), as well as to then animate the elements. I could have just pasted the SVG code into the template but this seemed unbelievably inelegant, and would have massively impeded code-reuse.</p>
 
-<p>I also made the self-portrait image at the top of this page in inkscape, by tracing paths over an image of myself, then adjusting those paths, and adding colour. For some colour paths I used fill on existing elements, but for others, to give a less too-tidy effect, I created a separate colour fill path by hand and sent it to the bottom layer.</p>
+<p>I couldn't find a reason to use Inkscape in a more indepth way related to the site theme, so I made this self-portrait image just to demonstrate more sophisticated use of the tool.</p>
+<img src="/img/selfie.svg" maxwidth="80%"></img>
+<p>I made it by tracing paths over an image of myself using bezier curves, then adjusting those paths, and adding colour. I used path splitting and joining operations to create fill areas for facial hair. For the shirt colour I created a separate colour fill path by hand to give a more casual look and sent it to the bottom layer.</p>
 
 </li>
 <li><strong>A for Server</strong><br/>

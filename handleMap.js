@@ -9,12 +9,15 @@ var querystring = require("querystring"),
    requestParser = require("./requestParser"),
    globals = require("./globals");
 
-var locationPageTemplate, 
+var locationPageTemplate, captionTemplate,
    dbAction;
 
 function setup(dbHandler){
    // used regularly - load to memory once
    locationPageTemplate = fs.readFileSync("./templates/location.html", 'utf8');
+   captionTemplate = fs.readFileSync("./templates/caption.html", 'utf8');
+
+
    dbAction = dbHandler;
 }
 
@@ -98,16 +101,20 @@ function location(response, request){
             
             // THE CAPTION (separate div for Z-index purposes)
             if(thisRow.itemFunction == 'object' && hasCaption==1){
-               
-               insert+='<div id=captionElems'+thisRow.itemID +'" class="captionObject" '+ data +'>';
-               insert+='<div id="caption'+thisRow.itemID+'" class="caption">'+thisRow.caption+'<br/><a onClick="loc.closeCaption('+thisRow.itemID + '); return false;" class="closeCaption" href="#">close</a></div>';
-               insert+='<div id="captionLink'+thisRow.itemID+'" class="captionLink"><a class="showCaption" onClick="loc.showCaption('+thisRow.itemID + '); return false;" href="#">[...]</a></div>';
-               insert+='</div>';
+               var thisCaption = captionTemplate.replaceAll("$data", data);
+               thisCaption = thisCaption.replaceAll("$caption", thisRow.caption);
+               thisCaption = thisCaption.replaceAll("$itemID", thisRow.itemID);
+               insert +=thisCaption;
             }
-
-
             return insert;       
          }
+
+         // taken from here http://stackoverflow.com/questions/1144783/how-to-replace-all-occurrences-of-a-string-in-javascript
+         String.prototype.replaceAll = function(search, replacement) {
+             var target = this;
+             return target.split(search).join(replacement);
+         };
+
 
       }
 
