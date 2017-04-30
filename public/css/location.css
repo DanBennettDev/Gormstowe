@@ -163,6 +163,13 @@
     display: inline;
 }
 
+#captionControls{
+    bottom:5px;
+    right:5px;
+    position:absolute;
+    clear: both; 
+}
+
 
 
 .imageObject, .bgObject, .captionObject{
@@ -229,12 +236,6 @@
 
 }
 
-.closeCaption{
-    bottom:5px;
-    right:5px;
-    position:absolute;
-    clear: both; 
-}
 
 input, select, button, textarea
  {
