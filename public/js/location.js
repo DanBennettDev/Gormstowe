@@ -22,7 +22,11 @@ function LocationActions() {
 		displayH = 10,
 		navOffset = 2.5,
 		maxW = 100,
-		maxH = 100;
+		maxH = 100,
+		venetianOnVal=4,
+		rotateOnVal=2,
+		colouriseOnVal=1;
+
 
 	var action, locXFine, locYFine;
 
@@ -46,6 +50,10 @@ function LocationActions() {
 
 		addEventListener("keydown", handleKeyDown, false);
 		addEventListener("keyup", handleKeyUp, false);
+
+		document.getElementById("functionType")
+			.addEventListener("click", showHideMenuElements, false);
+
 	}
 
 
@@ -76,7 +84,6 @@ function LocationActions() {
 	function buildLocationURL(action, x, y, w, h) {
 		// limiting user to map client side to allow people to hack it if they want to
 		// I actually kind of like the idea of someone making a hidden bit. 
-		// it won't break the system
 		x = x < 0 ? 0 : x;
 		x = x > maxW ? maxW : x;
 		y = y < 0 ? 0 : y;
@@ -168,6 +175,19 @@ function LocationActions() {
 		document.getElementById("help").style.visibility = "hidden";
 	}
 
+	function showHideMenuElements(){
+		var optBox = document.getElementById("functionType");
+		var selected = optBox.options[optBox.selectedIndex].value;
+
+		if(selected=="texture"){
+			console.log("trigger");
+			document.getElementById("textureOptions").style.display = "inline";
+			document.getElementById("objectOptions").style.display = "none";
+		} else {
+			document.getElementById("textureOptions").style.display = "none";
+			document.getElementById("objectOptions").style.display = "inline";
+		}
+	}
 
 
 	// clicks on locationClicker
@@ -182,6 +202,7 @@ function LocationActions() {
 		displayMenu(event.clientX, event.clientY)
 
 	}
+
 
 
 	return LocationActions;

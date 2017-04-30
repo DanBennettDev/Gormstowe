@@ -8,6 +8,7 @@
 content="text/html; charset="UTF-8" />
 <link  rel="stylesheet" href="./css/general.css" />
 <link  rel="stylesheet" href="./css/location.css" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Vollkorn" />
 <script  type="text/javascript" id="initVariables">
 	var locX=0, locY=0, help=false;
 	// variables used in other script go here, populated server side
@@ -34,7 +35,6 @@ Ctrl click to set position
 
 
 <a id="navNorth" class="nav"><img class="north" src="./img/nav_arrow_n.svg" /></a>
-
 <a id="navSouth" class="nav"><img class="south" src="./img/nav_arrow_s.svg"/></a>
 <a id="navEast" class="nav"><img class="east" src="./img/nav_arrow_e.svg"/></a>
 <a id="navWest" class="nav"><img class="west" src="./img/nav_arrow_w.svg"/></a>
@@ -48,21 +48,41 @@ Ctrl click to set position
 	<p>Images may have text attached - indicated by "[...]". If you see one of these you may click to expand the text</p>
 	<p><strong>To add your own content: </strong> hold control and click on location to place content. A menu will appear allowing you to complete your upload</p>
 	<p>If the current page is blank then you have found an untouched region of the map. Feel free to leave something, or just move somewhere else using the arrows at the edge of the screen</p>
-	<p><em>My goal is to add foreground and background layers, with parallax scrolling, and make the map draggable, like google maps. Also users will be able to have their images processed. Further in the future (beyond the scope of this project) I want users to be able to tag images, and create links between images to create "routes" through the content, which will show up as threads drawn on screen creating a kind of narrative, showing on optional layers which users can turn on or off </p>
-	<p>The images, etc. here at the moment are just what was hanging around and things I'd already made for the front page</em></p>
+	<p>Images marked as "texture" will load to the background layer, and can be processed. Images marked as "objects" will appear in the foreground. </p>
+
+	<p><em>Ultimately I intend to implement parallax scrolling of these layers and make the map draggable, like google maps. Further in the future (beyond the scope of this project) I want users to be able to tag images, and create links between images to create "routes" through the content, which will show up as threads drawn on screen, creating a kind of narrative, showing on optional layers which users can turn on or off </p>
+	<p>The images, etc. here at the moment are just a mixture of what was hanging around and things I'd already made for the front page</em></p>
 	<button id="closeHelp">close</button>
 </div>
 
 
 <div id="upload">
-<form id="upload_form" action="/upload" enctype="multipart/form-data" 
-method="post">
+<form id="upload_form" action="/upload" enctype="multipart/form-data" method="post">
+
+<select name="functionType" id="functionType">
+ <option value="object">object</option>
+ <option value="texture">texture</option>
+ </select>
 <input type="file" name="upload"><br/>
+
+ <div id="objectOptions">
 <input type="text" id="name" name="name" value="enter name"/><br/>
 <textarea id="captionText" name="captionText" rows="20" cols="40">enter text</textarea><br/>
+</div>
+
+ <div id="textureOptions">
+Processes:</br>
+<input type="checkbox" name="venetian" id="venetianOn" value="venetian">venetian blind<br>
+<input type="checkbox" name="rotate" id="rotateOn" value="rotate">rotate random<br>
+<input type="checkbox" name="colourise" id="colouriseOn" value="colourise">colourise (not implemented)<br>
+</div>
+
+
 <input type="submit" value="submit" />
 </form>
 <button id="closeMenu">close</button>
+
+
 </div>
 
 </body>

@@ -29,18 +29,6 @@
 }
 
 
-#back {
-    position: absolute;
-    float: right;
-    top:0;
-    right:0;
-    font-size: 2em;
-    padding-right: 10px;
-    margin-top: 10px;
-    z-index: 1000;
-    clear: both;    
-}
-
 #navNorth {
     transform: translate(-50%, 0%) ;
     -ms-transform: translate(-50%, 0%) ; /* IE 9 */
@@ -167,7 +155,17 @@
 }
 
 
-.imageObject, .captionObject{
+#textureOptions {
+    display: none;
+}
+
+#objectOptions {
+    display: inline;
+}
+
+
+
+.imageObject, .bgObject, .captionObject{
     position: absolute;
     /* position coords should should be to centre of image*/
     transform: translate(-50%, -50%) ;
@@ -175,6 +173,14 @@
     -webkit-transform: translate(-50%, -50%) ; /* Chrome, Safari, Opera */
     float: both;
     clear: none;
+}
+
+.imageObject {
+    z-index: 0;
+}
+
+.bgObject {
+    z-index: -50;
 }
 
 .captionObject{

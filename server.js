@@ -3,19 +3,19 @@
 
 
 var http = require("http"),
-	url = require("url");
+   url = require("url");
 
 function start(port, route, handle) {
-	function onRequest(request, response) {
-		var pathname = url.parse(request.url).pathname;
-		route(handle, pathname, response, request);
-	}
+   function onRequest(request, response) {
+      var pathname = url.parse(request.url).pathname;
+      route(handle, pathname, response, request);
+   }
 
-	var service = http.createServer(onRequest)
-	service.listen(port, "localhost");
-	var address = "http://localhost";
-	if (port != 80) address = address + ":" + port;
-	console.log("Server running at", address);
+   var service = http.createServer(onRequest)
+   service.listen(port, "localhost");
+   var address = "http://localhost";
+   if (port != 80) address = address + ":" + port;
+   console.log("Server running at", address);
 }
 
 exports.start = start;

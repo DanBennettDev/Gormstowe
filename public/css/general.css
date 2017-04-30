@@ -14,12 +14,18 @@ font-family: 'Vollkorn', "Times New Roman", Georgia, Serif;
 body {
     width:100%;
     display:table-cell;
+    overflow: hidden;
 }
+
+#report {
+    overflow: scroll;
+}
+
+
 
 html, body {
     margin: 0px;
     padding: 0px;
-    overflow: hidden;
 }
 
 a {
@@ -48,6 +54,23 @@ a:hover:after {
     width: 100%;
     overflow: hidden;
 }
+
+#reportText {
+    top: 0px;
+    left: 0px;
+    padding: 20px;
+}
+
+#reportText h1 {
+    font-size: 2em;
+}
+
+#reportText img {
+    max-width: 100%;
+    height: auto;
+}
+
+
 
 
 /*https://css-tricks.com/snippets/css/reversing-text/*/
@@ -163,6 +186,21 @@ a:hover:after {
 #middleMenu a {
     display:inline;
 }
+
+
+
+#back {
+    position: absolute;
+    float: right;
+    top:0;
+    right:0;
+    font-size: 2em;
+    padding-right: 10px;
+    margin-top: 10px;
+    z-index: 1000;
+    clear: both;    
+}
+
 
 
 .background {

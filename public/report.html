@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<title>report</title>
+<meta http-equiv="Content-Type" content="text/html" charset="UTF-8" />
+<link  rel="stylesheet" href="./css/general.css" />
+<link  rel="stylesheet" href="./css/text_anim.css" />
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Vollkorn" />
+</head>
+
+<body id="report">
+<div id="back"><a href="/"><em>BACK</em></a></div>
+<div id="reportText">
+<img src="/img/selfie.svg" maxwidth="80%"></img>
+
+<h1>Overview</h1>
+<p>This site is a bit of an experiment. A friend of mine is a writer, and we've talked for a while about how we might approach a group collaborative fiction writing on the internet, and we had the idea of a site where users could navigate around a space, and leave "objects" (images/sounds), attach texts to them, and create links between objects by tagging them, to create narratives that others could follow. The site as it stands is a sketch towards that idea. At present there is no tagging (or other post-upload altering) of objects. There is also no handling of user profiles.</p>
+
+<p>Here is a working sketch of the final intended look that I made as guidance when we were discussing the site, before the course started. It was created in GIMP, but stored as JPEG (every other image on the site, made since the course began, is PNG or SVG) 
+<img class="fullwidth" src="/img/mockup.jpg"></img>
+</p>
+
+<p>The front page at index.htm, or / is just an atmospheric scene-setter, and I used it to get a feel for arranging sequences of events with JS - again with an eye on building narratives and atmospheres. Most of the rest of the site runs off one HTML template, with content populated by the server. I use dynamic HTML both client and server side (more below) to build the pages. </p>
+
+<h2>Development</h2>
+<p>
+I didn't use any framework, just raw Node and JS with some packages for the former. I worked alone, not in a pair.</p>
+
+<h3>Packages and Resources used</h3>
+<p>I used the web extensively to find out how to do things, but rarely took elements wholesale or with minimal alteration. Where I have borrowed work I have commented my code to indicate source - perhaps 3 or 4 places. I mostly had a good idea of what I wanted to do up front, and used mainly Stack Overflow, the Mozilla developer pages, W3C to find out how to implement. An exception here is the thick transluscent underline on <code>a:hover</code> elements was a visual idea taken more or less directly from Wired.com - though I don't think they use it any more. I found a more-or-less complete implementation on stack overflow and just tweaked the values to my taste.</p>
+
+
+<p><strong>Node packages</strong>: I used <strong>d3</strong> to insert inline SVG elements from file into the DOM (as I found this seemed to be neccessary in order to animate the SVG elements with javascript). I used <strong>sharp</strong> for server-side image processing since it has a reputation for performance, and has very good documentation. I might augment with another package longer term as and though I enjoyed the ability to make glitchy effects by directly manipulating the image buffer it exposes, it is not designed for image transforms and quite limited in this area. I also used <strong>node formidable</strong> for form handling, <strong>node-uuid</strong> for generating unique file identifiers,and <strong>node sqlite3</strong> for database interfacing</p>
+	
+
+<p>All images are my own, made from my own photographs, processed in GIMP, or for a few of the "uploaded" images on the "explore section" in Photoshop (these predated this project).</p>
+	
+
+
+
+
+My estimates and justifications:
+<ul>
+<li><strong>A for HTML</strong><br/>
+I wrote all the HTML by hand, no framework, and wrote a simple bash script to test my dynamic pages  (copied into the test folder). Since image layering is a central issue in my design I had to give thought to nesting of divs, in order to make elements' Z positions . For example captions are not nested beneath their objects, though that might immediately seem to make most since, since all captions must be above all images, and nested z-indexes only apply within their own heirarchy.</li>
+<li><strong>A for CSS</strong><br/>
+Again, all written by hand. The "rushing-confetti" text animation on the front page, is handled purely in CSS and HTML. I designed my CSS such that all pages are usefully responsive to screen size and dimension.  I also gained experience manipulating style elements with JS to perform animation, and generate pages. I used elements of CSS up to version 3, and modern CSS techniques are integral to many of the site's effects - it is hard to see how they could have been done otherwise, and in any case, the site will likely perform very slowly on older browsers. As such, I have not tried too hard to support older browsers, but where possible I have made efforts to ensure compatibility - including <code>webkit</code> and <code>ms</code> versions of translate instructions, for example. Where CSS animation proved poor on a modern platform (e.g. the front page's "rushing confetti" text-animation works badly on firefox) I made sure it was disabled for that platform.  
+
+Due to the demands of the animation effects and responsiveness I wanted to implement, I had to consider reasonably advanced CSS considerations like overflow handling, true-centering of images and divs of unknown size.  
+
+</li>
+<li><strong>A for JS</strong><br/>
+<p>I put much of my energy into using JS to generate animation effects for the front page. I coded these animation transitions by hand rather than using webkit CSS effects as I wanted greater control over event-timing, so I could build an atmospheric sequence of events, and so the animations would not look "stock".</p>
+
+<p>I also make use of JS to handle menus, and the user interface - giving feedback on actions by indicating where elements will be placed, and keeping menus uncluttered and easy to follow by only showing the relevant elements for the chosen options.
+</p>
+
+
+<p>I also used client side JS to populate page elements where this seemed the best solution. e.g. I kept my HTML5 template clean and avoided transmitting unneccessary text by populating the long text strings for the front page animations procedurally at load time. The SVG text animation on the front page is also loaded into the DOM via JS at load to allow for animation of its elements. Since this was a relatively slow operation I had to give consideration here to asynchronous programming.  Finally I use client side JS to set the URLs for the upload and navigation links; this is because I ultimately want the user to be able to move around the space google-maps style, without changing URL and reloading the page, instead adding new elements to the DOM via AJAX. This client-side generation of basic page elements lays the groundwork for this.</p>
+
+</li>
+<li><strong>A for PNG</strong><br/>
+<p>All images are my own, and while none are hand drawn, I have made extensive alterations to nearly all images on the site, using layering, airbrushing and transparency techniques. I also experimented with different types of PNG to get retro effects, carefully selecting patterned or noise dithers, 8 bit colour and locking to the web palette, not only to reduce filesize but also to generate a nostalgic web 1.0 texture on some images (e.g. the central image on the front page.)</p>
+
+<p>The central front page image is a composite of several of my photographs to create a somewhat disjointed and atmospheric mood. Transparency, masking and layering were used, with sharp transitions between cut-out elements (e.g. the foreground rock) smoothed with airbrushing. </p>
+
+<p>The cable car images were processed in GIMP to give a high-contrast effect to emphasise the grain of the photographs. Masks were created using colour-inverted transformation layers, and these masks were used to apply variable transparency effects to allow atmospheric overlaying of the images while retaining clarity of form in the front page animation</p>
+
+<p>I also tried to make use of the PNGCRUSH utility to minimise file sizes. Experimenting I found this was more effective in some places than others, and sometimes the PNGCRUSH outputs were actually larger than the originals. </p>
+</li>
+
+
+
+<li><strong>A for SVG</strong><br/>
+<p>I used SVG for the front, fragmented-text, animation ("viisit"), and for the very simple navigation arrows on the main page. In both cases I began generating in Inkscape, but ended by manually editing the SVG by hand. For the simple arrows it ultimately ended up easier to write the SVG from scratch than to use Inkscape.</p>
+
+<p>The text animation perhaps doesn't look much, but though I initially expected this to be simple, I found it quite hard to work out how to do it in SVG. If I hadn't been doing this course I'd have ditched SVG and made an animated GIF, just to save time, but I'm now glad I took the opportunity to dig into the inner workings of the SVG standard. Having generated the image in inkscape, cutting the paths to generate the fragmented elements, I had to manually edit the SVG file, to insert ids into elements. I then discovered that it seems not possible to access the inner elements of a non-inline SVG via the DOM. As such I had to find a way to insert the SVG code into the page (I did this with d3), as well as to then animate the elements. I could have just pasted the SVG code into the template but this seemed unbelievably inelegant, and would have massively impeded code-reuse.</p>
+
+<p>I also made the self-portrait image at the top of this page in inkscape, by tracing paths over an image of myself, then adjusting those paths, and adding colour. For some colour paths I used fill on existing elements, but for others, to give a less too-tidy effect, I created a separate colour fill path by hand and sent it to the bottom layer.</p>
+
+</li>
+<li><strong>A for Server</strong><br/>
+<p>I did not use a framework and wrote my server myself. I have handled URL validation, parameters in URLs, and developed my server in a modular fashion that allows it to be easily be expanded, and elements of it to be reused. Though I have not dealt with content negotiation for older browsers, etc. I have implemented server-side image processing using chains of asynchronous operations to avoid image processing for one user holding up actions for other users</p>
+</li>
+
+<li><strong>A for Database</strong><br/>
+<p>Though tagging etc. is not in place in the site yet, the database is ready to support this. I gave thought to developing a clean interface for managing database interaction, keeping all the complexity away from the rest of the code, and keeping SQL script separated from JS, to allow easier development and debugging of the former. I have not yet implemented the delete and update operations which will shortly be required in order to allow alteration of already-uploaded items, but given the framework in place this will not be difficult.</p>
+</li>
+
+
+<li><strong>A for Dynamic pages</strong><br/>
+<p>
+The majority of the content of the main "explore" section of the site is handled via a mixture of client and server side dynamic pages. I have covered the client side in JS section above. The server generates each page according to the "location" requested. The database is queried for elements uploaded within range, and these are added to the DOM, server-side. Links are set up on the same principle.    
+</p>
+</li>
+
+
+<li><strong>? for Depth (out of 40)</strong><br/>
+See the rest of this page for details</li>
+</ul>
+
+
+
+<H2>Future development</H2>
+<p>
+I will continue working on this after the course is complete: my end goal is to have the map navigable via dragging (ala google maps). I also intend to use 2 or 3 layers of parallax scrolling to give an interesting texture to the motion. To implement this I will first change the world-coordinates of the main layer to represent actual pixels, use AJAX to load near-by elements to the DOM as the user scrolls towards them, and use JS to remove distant objects from the DOM to keep the tree small, and performance at a reasonable level. Object divs are already tagged with "data-..." elements indicating position to allow easy removal of distant elements. Based on research so far, I will probably try moving to a model whereby each layer of world space is represented by a very large DIV, with elements anchored against that. I will move the div by <code>tranform-translate</code> commands, since many resources report that this is more efficient than altering <code>top, left</code> etc. elements </p>
+
+<p>Most likely I will soon move to using express or a similar node framework. For this project, I wanted to work from the ground up in order to learn the basics, and in order to appreciate (or be able to meaningfully critique) the solutions I would find in off-the-shelf solutions. But as the site grows it will make increasing sense to have basic elements handled solidly by a trusted framework, leaving me to focus on content.</p>
+
+</div>
+</body>
+</html>

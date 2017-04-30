@@ -17,14 +17,14 @@
 
 
 var server = require("./server"),
-	router = require("./router"),
-	requestHandlers = require("./requestHandlers"),
-	handleMap = require("./handleMap"),
-	handleUpload = require("./handleUpload"),
-	fileRequestHandler = require("./fileHandler"),
-	imagePrep = require("./imagePrep"),
-	dbHandling = require("./dbHandling"),
-	globals = require("./globals");
+   router = require("./router"),
+   requestHandlers = require("./requestHandlers"),
+   handleMap = require("./handleMap"),
+   handleUpload = require("./handleUpload"),
+   fileRequestHandler = require("./fileHandler"),
+   imagePrep = require("./imagePrep"),
+   dbHandling = require("./dbHandling"),
+   globals = require("./globals");
 
 
 
