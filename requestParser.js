@@ -25,9 +25,16 @@ function getParamString(request){
 }
 
 function getParam(paramString, part){
-   var partLen = part.length;
-   return paramString.substring(paramString.indexOf(part)+1+partLen, 
-         paramString.indexOf(part)+2+partLen+ placesBeforeDecimal+placesAfterDecimal);
+   var paramStart = paramString.indexOf(part) + part.length + 1; // param starts after "=""
+   var paramEnd = paramString.indexOf(",",paramStart); // comma delimited 
+   if(paramEnd <0){paramEnd = paramString.length ;}
+
+   console.log("part: "+ part);
+
+   console.log("start:"+paramStart+" end:"+paramEnd);
+   console.log(paramString.substring(paramStart, paramEnd));
+
+   return paramString.substring(paramStart, paramEnd);
 }
 
 function buildLocationURL(action, x, y, w, h, showHelp){

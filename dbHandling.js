@@ -87,6 +87,12 @@ function createItem(details, callback) {
 }
 
 
+function deleteItem(itemID, callback) {
+   run('DELETE FROM Item WHERE id = ?', {itemID}, callback, 'deleteItem');
+}
+
+
+
 function createTag(name, description, callback) {
    var details =  {  $name: name,
                      $description: description
@@ -234,6 +240,7 @@ exports.setup = setup;
 exports.test = test;
 exports.createUser = createUser;
 exports.createItem = createItem;
+exports.deleteItem = deleteItem;
 exports.createTag = createTag;
 exports.tagItem = tagItem;
 exports.getUserInfo = getUserInfo;
