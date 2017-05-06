@@ -13,6 +13,21 @@
 <div id="back"><a href="/"><em>BACK</em></a></div>
 <div id="reportText">
 
+<h2>Summary of Changes since first handed in</h2>
+<p>Some of the text on this page has been updated to reflect changes, but in case it helps save time, here's a quick summary of what I've changed since you last saw the site. Not a huge amount.</p>
+<p>
+<ul>
+<li>Moved html for the uploaded objects and their captions to a template file (ultimately all html in strings server side should go this way)</li>
+<li>Added function to allow users to delete objects on the site (via the [...] caption links) I'll need to limit this to users' own objects when I implement user accounts</li>
+<li>Fixed URLs for the "explore" section - they previously all used the "upload" method, in error</li>
+<li>Improved parameter handling - now parameters can be any non-comma containing string, not just decimal values, formatted ###.##</li>
+<li>created inkscape self-portrait (below) to fulfill SVG requirement</li>
+<li>altered help box CSS to adjust to smaller screens</li>
+</ul>
+
+</p>
+
+
 <h1>Overview</h1>
 <p>This site is a bit of an experiment. A friend of mine is a writer, and we've talked for a while about how we might approach a group collaborative fiction writing on the internet, and we had the idea of a site where users could navigate around a space, and leave "objects" (images/sounds), attach texts to them, and create links between objects by tagging them, to create narratives that others could follow. The site as it stands is a sketch towards that idea. At present there is no tagging (or other post-upload altering) of objects. There is also no handling of user profiles.</p>
 
@@ -76,9 +91,9 @@ Again, all written by hand. The "rushing-confetti" text animation on the front p
 
 <p>The text animation perhaps doesn't look much, but though I initially expected this to be simple, I found it quite hard to work out how to do it in SVG. If I hadn't been doing this course I'd have ditched SVG and made an animated GIF, just to save time, but I'm now glad I took the opportunity to dig into the inner workings of the SVG standard. Having generated the image in inkscape, cutting the paths to generate the fragmented elements, I had to manually edit the SVG file, to insert ids into elements. I then discovered that it seems not possible to access the inner elements of a non-inline SVG via the DOM. As such I had to find a way to insert the SVG code into the page (I did this with d3), as well as to then animate the elements. I could have just pasted the SVG code into the template but this seemed unbelievably inelegant, and would have massively impeded code-reuse.</p>
 
-<p>I couldn't find a reason to use Inkscape in a more indepth way related to the site theme, so I made this self-portrait image just to demonstrate more sophisticated use of the tool.</p>
+<p>I couldn't find a reason to use Inkscape in a more indepth way related to the site theme, so I made this self-portrait image just to fulfil this requirement.</p>
 <img src="/img/selfie.svg" maxwidth="80%"></img>
-<p>I made it by tracing paths over an image of myself using bezier curves, then adjusting those paths, and adding colour. I used path splitting and joining operations to create fill areas for facial hair. For the shirt colour I created a separate colour fill path by hand to give a more casual look and sent it to the bottom layer.</p>
+<p>I made it by tracing paths over an image of myself using bezier curves, then adjusting those paths, and adding colour. I used path splitting and joining operations to create fill areas for facial hair. For the shirt colour I created a separate slightly wonky textured colour fill path, by hand and sent it to the bottom layer. I added a few gradient-fill paths to add shading</p>
 
 </li>
 <li><strong>A for Server</strong><br/>
@@ -86,7 +101,7 @@ Again, all written by hand. The "rushing-confetti" text animation on the front p
 </li>
 
 <li><strong>A for Database</strong><br/>
-<p>Though tagging etc. is not in place in the site yet, the database is ready to support this. I gave thought to developing a clean interface for managing database interaction, keeping all the complexity away from the rest of the code, and keeping SQL script separated from JS, to allow easier development and debugging of the former. I have not yet implemented the delete and update operations which will shortly be required in order to allow alteration of already-uploaded items, but given the framework in place this will not be difficult.</p>
+<p>Though tagging etc. is not in place in the site yet, the database is ready to support this. I gave thought to developing a clean interface for managing database interaction, keeping all the complexity away from the rest of the code, and keeping SQL script separated from JS, to allow easier development and debugging of the former. I have not yet implemented the update operation to allow alteration of already-uploaded items, but given the framework in place this should not be difficult.</p>
 </li>
 
 
@@ -102,8 +117,7 @@ See the rest of this page for details</li>
 </ul>
 
 
-
-<H2>Future development</H2>
+<h2>Future development</h2>
 <p>
 I will continue working on this after the course is complete: my end goal is to have the map navigable via dragging (ala google maps). I also intend to use 2 or 3 layers of parallax scrolling to give an interesting texture to the motion. To implement this I will first change the world-coordinates of the main layer to represent actual pixels, use AJAX to load near-by elements to the DOM as the user scrolls towards them, and use JS to remove distant objects from the DOM to keep the tree small, and performance at a reasonable level. Object divs are already tagged with "data-..." elements indicating position to allow easy removal of distant elements. Based on research so far, I will probably try moving to a model whereby each layer of world space is represented by a very large DIV, with elements anchored against that. I will move the div by <code>tranform-translate</code> commands, since many resources report that this is more efficient than altering <code>top, left</code> etc. elements </p>
 

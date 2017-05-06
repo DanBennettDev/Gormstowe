@@ -84,6 +84,9 @@
     z-index: -100;
     width: auto;
     height: auto;
+    max-height: 90vh;
+    max-width: 90vw;
+    overflow:auto;
     top: 50vh;
     left: 50vw;
     transform: translate(-50%, -50%) ;

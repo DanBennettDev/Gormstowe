@@ -88,7 +88,19 @@ function createItem(details, callback) {
 
 
 function deleteItem(itemID, callback) {
-   run('DELETE FROM Item WHERE id = $itemID;', {$itemID: itemID}, callback, 'deleteItem');
+   get('SELECT fileURL from Item WHERE id = $itemID', {$itemID: itemID}, deleteObjFile, 'getItemInfo');
+
+   function deleteObjFile(row){
+      fs.unlink("./public"+row.fileURL, (err) => {
+         if(err) {
+            console.log(err);
+         };
+         run('DELETE FROM Item WHERE id = $itemID;', {$itemID: itemID}, callback, 'deleteItem');
+      });
+   }
+
+
+   
 }
 
 
