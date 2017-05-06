@@ -1,4 +1,4 @@
-// server component, largely based on Ian's script, 
+// server component. Configured by the entry script input.js
 // Ensures requests are valid before passing on to handlers
 
 

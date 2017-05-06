@@ -38,9 +38,9 @@ handleUpload.setup(imagePrep, dbHandling, handleMap);
 handleDelete.setup(dbHandling, handleMap);
 
 handle["/"] = requestHandlers.handle;
-handle["/explore"] = requestHandlers.explore;
+// handle["/explore"] = requestHandlers.explore;
 handle["/upload"] = handleUpload.upload;
-handle["/delete"] = handleDelete.delete;
+handle["/delete"] = handleDelete.deleteItem;
 handle["/location"] = handleMap.location;
 
 server.start(globals.port, router.route, handle);

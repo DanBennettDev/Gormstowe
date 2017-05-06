@@ -2,8 +2,7 @@
 <div id="caption$itemID" class="caption">$caption<br/>
 
 <div id="captionControls">
-<a onClick="loc.deleteObject($itemID); return false;" 
-href="#">delete</a>
+<a href="delete&id=$itemID,x=$xPos,y=$yPos,w=$width,h=$height">delete</a>
 <a onClick="loc.closeCaption($itemID); return false;" 
  href="#">close</a>
 </div>
@@ -12,5 +11,5 @@ href="#">delete</a>
 
 <div id="captionLink$itemID" class="captionLink">
 <a class="showCaption" onClick="loc.showCaption($itemID); return false;" 
-href="#">[...]</a></div>;
-</div>;
+href="#">[...]</a></div>
+</div>

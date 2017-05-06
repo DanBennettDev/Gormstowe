@@ -17,7 +17,6 @@ function getAction(request){
 function getParamString(request){
    var requestAction = url.parse(request.url).pathname;
    var paramStart = requestAction.indexOf("&");
-
    if(paramStart==-1){
       return 0;
    }
@@ -28,12 +27,6 @@ function getParam(paramString, part){
    var paramStart = paramString.indexOf(part) + part.length + 1; // param starts after "=""
    var paramEnd = paramString.indexOf(",",paramStart); // comma delimited 
    if(paramEnd <0){paramEnd = paramString.length ;}
-
-   console.log("part: "+ part);
-
-   console.log("start:"+paramStart+" end:"+paramEnd);
-   console.log(paramString.substring(paramStart, paramEnd));
-
    return paramString.substring(paramStart, paramEnd);
 }
 

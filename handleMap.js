@@ -100,12 +100,19 @@ function location(response, request){
             insert +=   '</div>';   
             
             // THE CAPTION (separate div for Z-index purposes)
-            if(thisRow.itemFunction == 'object' && hasCaption==1){
-               var thisCaption = captionTemplate.replaceAll("$data", data);
-               thisCaption = thisCaption.replaceAll("$caption", thisRow.caption);
-               thisCaption = thisCaption.replaceAll("$itemID", thisRow.itemID);
-               insert +=thisCaption;
-            }
+            // if(thisRow.itemFunction == 'object' && hasCaption==1){
+            // for the moment this is the only route to deleting an item,
+            // so adding a "caption" unconditionally. TODO: find more elegant solution to deleting
+            var thisCaption = captionTemplate.replaceAll("$data", data);
+            thisCaption = thisCaption.replaceAll("$caption", thisRow.caption);
+            thisCaption = thisCaption.replaceAll("$itemID", thisRow.itemID);
+            thisCaption = thisCaption.replaceAll("$xPos", thisRow.positionX);
+            thisCaption = thisCaption.replaceAll("$yPos", thisRow.positionY);
+            thisCaption = thisCaption.replaceAll("$width", globals.gridSquareWidth);
+            thisCaption = thisCaption.replaceAll("$height", globals.gridSquareHeight);
+
+            insert +=thisCaption;
+            // }
             return insert;       
          }
 

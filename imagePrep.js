@@ -32,7 +32,6 @@ function processImage(fileIn, fileOut, onRows, offRows, options, callback)
 {
    convertPNG(fileIn, fileOut, processChain);
    function processChain() {
-      console.log("start process");
       sharp(fileOut).overlayWith(
          //guarantee 4 layer png
          new Buffer([0, 0, 0, 0]),
@@ -81,7 +80,12 @@ function processImage(fileIn, fileOut, onRows, offRows, options, callback)
          }
       }).rotate(rotateAmt).toBuffer(colourise);
       } else {
-         sharp(buffer).toBuffer(colourise);
+         sharp(buffer, {
+         raw: {
+            width: width,
+            height: height,
+            channels: channels
+         }}).toBuffer(colourise);
       }
    }
 

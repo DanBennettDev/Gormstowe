@@ -88,7 +88,7 @@ function createItem(details, callback) {
 
 
 function deleteItem(itemID, callback) {
-   run('DELETE FROM Item WHERE id = ?', {itemID}, callback, 'deleteItem');
+   run('DELETE FROM Item WHERE id = $itemID;', {$itemID: itemID}, callback, 'deleteItem');
 }
 
 

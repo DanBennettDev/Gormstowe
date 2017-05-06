@@ -68,13 +68,13 @@ function LocationActions() {
 
 	function setNavLinks() {
 		document.getElementById('navNorth').href =
-			buildLocationURL('upload', locXFine, locYFine - navOffset, displayW, displayH);
+			buildLocationURL('location', locXFine, locYFine - navOffset, displayW, displayH);
 		document.getElementById('navSouth').href =
-			buildLocationURL('upload', locXFine, locYFine + navOffset, displayW, displayH);
+			buildLocationURL('location', locXFine, locYFine + navOffset, displayW, displayH);
 		document.getElementById('navEast').href =
-			buildLocationURL('upload', locXFine + navOffset, locYFine, displayW, displayH);
+			buildLocationURL('location', locXFine + navOffset, locYFine, displayW, displayH);
 		document.getElementById('navWest').href =
-			buildLocationURL('upload', locXFine - navOffset, locYFine, displayW, displayH);
+			buildLocationURL('location', locXFine - navOffset, locYFine, displayW, displayH);
 	}
 
 

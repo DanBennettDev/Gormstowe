@@ -12,7 +12,7 @@ var dbAction;
 var handleMap;
 
 
-function setup(imageProcessor, dbHandler, mapHandler) {
+function setup(dbHandler, mapHandler) {
    dbAction = dbHandler;
    handleMap = mapHandler;
 }
@@ -21,7 +21,7 @@ function setup(imageProcessor, dbHandler, mapHandler) {
 function deleteItem(response, request) {
 
    var params = requestParser.getParamString(request);
-   var itemID = requestParser.getParam(params,'itemID');
+   var itemID = requestParser.getParam(params,'id');
 
    dbAction.deleteItem(itemID, show);
    
